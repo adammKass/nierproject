@@ -1,51 +1,17 @@
 ---
+import BaseLayout from "./BaseLayout.astro";
+import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.astro";
 
-import Navbar from "../components/Navbar.jsx";
-import { ClientRouter } from "astro:transitions";
 const pathname = Astro.url.pathname;
-import "../styles/global.css";
-
-const {
-  title = "Default Title",
-  description = "Default description",
-  image = "/og-default.jpg",
-} = Astro.props;
+const props = Astro.props;
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<BaseLayout {...props}>
+  <Navbar pathname={pathname} client:load />
 
-    <!-- Title -->
-    <title>{title}</title>
-
-    <!-- SEO -->
-    <meta name="description" content={description} />
-
-    <!-- Open Graph -->
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={image} />
-    <meta property="og:type" content="website" />
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={image} />
-  </head>
-  <ClientRouter />
-
-  <body class="bg-lightGray">
-    <Navbar pathname={pathname} client:load />
-    <div class="min-h-dvh flex flex-col bg-lightGray">
-      <slot />
-      <!-- your content is injected here -->
-      <Footer />
-    </div>
-  </body>
-
-
-</html>
+  <div class="min-h-dvh flex flex-col">
+    <slot />
+    <Footer />
+  </div>
+</BaseLayout>

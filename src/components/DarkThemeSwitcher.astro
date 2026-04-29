@@ -1,0 +1,29 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<button
+  class="group relative overflow-hidden border border-black transition-color duration-300 easeInOut text-black p-2 before:absolute before:inset-0 before:bg-black bg-white
+                before:origin-left before:scale-x-0
+                before:transition-transform before:duration-300
+                hover:before:scale-x-100 cursor-pointer"
+  type="button"
+  onclick="
+    const isDark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  "
+  id="theme-selector"
+>
+  <Icon
+    name="material-symbols:dark-mode"
+    class="text-lg relative z-10 items-center gap-3
+                  transition-colors duration-300
+                  text-black group-hover:text-white hidden dark:flex"
+  />
+  <Icon
+    name="material-symbols:light-mode"
+    class="text-lg relative z-10 flex items-center gap-3
+                  transition-colors duration-300
+                  text-black group-hover:text-white dark:hidden"
+  />
+</button>

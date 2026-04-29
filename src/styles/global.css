@@ -6,13 +6,34 @@ html.loaded .fade-in {
   transform: translateY(0);
 }
 
+@custom-variant dark (&:where(.dark, .dark *));
+html {
+  visibility: hidden;
+}
+
+html.dark,
+html:not(.dark) {
+  visibility: visible;
+}
 @theme {
   --color-lighterGray: #f5f5f5;
   --color-lightGray: #f0f0f0;
   --color-darkerGray: #8b8b8b;
+  --color-darkestGray: #3b3b3b;
+  --color-white: #ffffff;
+  --color-black: #000000;
   --font-sans: "Lato", sans-serif;
   --font-serif: "SpectralSC", sans-serif;
   --font-decorative: "Cinzel Decorative", cursive;
+}
+
+:root.dark {
+  --color-lighterGray: #141414;
+  --color-lightGray: #292929;
+  --color-darkerGray: #737373;
+  --color-darkestGray: #b3b3b3;
+  --color-white: #000000;
+  --color-black: #c9c9c9;
 }
 
 html {

@@ -74,7 +74,10 @@ export default function Navbar({ pathname }) {
             ))}
           </div>
           {/* Logo */}
-          <a href="/" class="block lg:hidden text-2xl  z-15 text-center">
+          <a
+            href="/"
+            class="block lg:hidden text-2xl  z-15 text-center text-black"
+          >
             <span class="font-decorative text-[2.2rem]  ">A</span>
             dam
             <span class="inline-block text-black">
@@ -152,6 +155,7 @@ export default function Navbar({ pathname }) {
                 
                 hover:before:scale-x-100 hover:text-white
                 
+                ${isOpen ? "pointer-events-auto" : "pointer-events-none"}
                 ${
                   pathname === link.href
                     ? "text-white before:scale-x-100"

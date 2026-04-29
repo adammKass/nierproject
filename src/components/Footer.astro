@@ -1,6 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import { SOCIAL_LINKS } from "../constants";
+import DarkThemeSwitcher from "./DarkThemeSwitcher.astro";
 ---
 
 <div class="w-full border-black z-20 border-t bg-lightGray py-6 sm:py-0">
@@ -26,6 +27,7 @@ import { SOCIAL_LINKS } from "../constants";
           </a>
         ))
       }
+      <DarkThemeSwitcher />
     </div>
     <p class="text-black text-center sm:text-left">
       © 2026 Adam Kascak. All rights reserved.

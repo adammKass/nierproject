@@ -69,17 +69,19 @@ const { frontmatter } = Astro.props;
         <!-- CONTENT -->
         <div
           class="prose prose-lg max-w-none
-              prose-headings:font-bold
+              prose-headings:font-bold prose-headings:text-black
+              
               prose-img:rounded-lg
               prose-img:mx-auto
               prose-figcaption:text-center
               prose-figcaption:text-sm
               prose-blockquote:border-l-4
               prose-blockquote:border-black
+              prose-blockquote:text-black
               prose-blockquote:pl-4
               prose-blockquote:italic
               prose-blockquote:text-3xl
-            px-4 md:px-8 2xl:px-16 pb-12"
+            px-4 md:px-8 2xl:px-16 pb-12 text-darkestGray"
         >
           <slot />
         </div>

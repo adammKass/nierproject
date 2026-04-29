@@ -106,12 +106,12 @@ export default function Modal({ open, onClose, projects, active, setActive }) {
           >
             <div className="content flex flex-row bg-white items-center py-2 px-4 gap-8 justify-between sm:justify-start">
               <h3 className="uppercase text-lg font-bold">Fullscreen Mode</h3>
-              <div className="flex flex-col sm:flex-row gap-2 ">
+              <div className="flex flex-col sm:flex-row gap-1 md:gap-2 ">
                 <button
                   className="group relative overflow-hidden flex flex-row items-center uppercase font-light before:absolute before:inset-0 before:bg-black
                 before:origin-left before:scale-x-0
                 before:transition-transform before:duration-300
-                hover:before:scale-x-100 cursor-pointer pl-2 py-3 sm:py-0"
+                hover:before:scale-x-100 cursor-pointer pl-2 py-2 sm:py-0"
                   onClick={prev}
                 >
                   <span

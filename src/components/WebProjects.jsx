@@ -101,7 +101,7 @@ export default function WebProjects({ projects }) {
                 className="w-full aspect-square object-cover p-4 border-b-2 border-darkerGray"
               />
 
-              <p className="p-4 text-gray-700">{project.textShort}</p>
+              <p className="p-4 text-black">{project.textShort}</p>
             </motion.div>
           </AnimatePresence>
         </motion.div>
@@ -166,25 +166,33 @@ export default function WebProjects({ projects }) {
           </AnimatePresence>
         </motion.div>
       </div>
-      <motion.div
-        variants={container}
-        initial="hidden"
-        animate="visible"
-        className="block sm:hidden flex flex-col gap-4 gridContainerMargin mb-7"
-      >
-        {projects.map((project, i) => {
-          const isOpen = openIndex === i;
+      <div className="sm:hidden flex flex-col gap-4 gridContainerMargin mb-7 relative">
+        <motion.div
+          initial={{ scaleY: 0 }}
+          animate={{ scaleY: 1 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          style={{ originY: 0.5 }}
+          className="absolute left-0 top-0 w-[2px] h-full bg-black"
+        />
+        <motion.div
+          variants={container}
+          initial="hidden"
+          animate="visible"
+          className="flex flex-col gap-2 pl-6"
+        >
+          {projects.map((project, i) => {
+            const isOpen = openIndex === i;
 
-          return (
-            <motion.div
-              variants={item}
-              key={i}
-              className="bg-white overflow-hidden"
-            >
-              {/* HEADER (clickable) */}
-              <motion.button
-                onClick={() => setOpenIndex(isOpen ? null : i)}
-                className={`group relative flex flex-row items-center justify-between bg-white w-full
+            return (
+              <motion.div
+                variants={item}
+                key={i}
+                className="bg-white overflow-hidden"
+              >
+                {/* HEADER (clickable) */}
+                <motion.button
+                  onClick={() => setOpenIndex(isOpen ? null : i)}
+                  className={`group relative flex flex-row items-center justify-between bg-white w-full
                 uppercase selectButtonSize text-left py-2 px-2
                 before:absolute before:inset-0 before:bg-black
                 before:origin-left before:scale-x-0
@@ -195,68 +203,69 @@ export default function WebProjects({ projects }) {
                     ? "before:scale-x-100 text-white"
                     : "text-black hover:text-white"
                 }`}
-              >
-                <h2 className="relative z-10 text-lg lg:text-xl">
-                  {project.title}
-                </h2>
-                <Icon
-                  icon="material-symbols:arrow-right"
-                  className={`z-100  transition-all duration-300 
+                >
+                  <h2 className="relative z-10 text-lg lg:text-xl">
+                    {project.title}
+                  </h2>
+                  <Icon
+                    icon="material-symbols:arrow-right"
+                    className={`z-100  transition-all duration-300 
       text-4xl  ${isOpen ? "text-white -rotate-90" : "text-black rotate-90"}`}
-                />
-              </motion.button>
+                  />
+                </motion.button>
 
-              {/* CONTENT */}
-              <div
-                className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                  isOpen ? "max-h-[1000px]" : "max-h-0"
-                }`}
-              >
-                <img
-                  src={project.thumb.src}
-                  className="w-full aspect-square object-cover px-4 pb-4 border-b-2 border-darkerGray"
-                />
+                {/* CONTENT */}
+                <div
+                  className={`transition-all duration-300 ease-in-out overflow-hidden ${
+                    isOpen ? "max-h-[1000px]" : "max-h-0"
+                  }`}
+                >
+                  <img
+                    src={project.thumb.src}
+                    className="w-full aspect-square object-cover px-4 pb-4 border-b-2 border-darkerGray"
+                  />
 
-                <p className="p-4 text-gray-700">{project.textShort}</p>
+                  <p className="p-4 text-black">{project.textShort}</p>
 
-                {/* DETAILS */}
-                <div className="flex flex-col gap-2 px-4 pb-4">
-                  <div className="flex justify-between border-b border-darkerGray pb-2">
-                    <p className="font-bold uppercase">Type</p>
-                    <p>{project.type}</p>
+                  {/* DETAILS */}
+                  <div className="flex flex-col gap-2 px-4 pb-4">
+                    <div className="flex justify-between border-b border-darkerGray pb-2">
+                      <p className="font-bold uppercase">Type</p>
+                      <p>{project.type}</p>
+                    </div>
+
+                    <div className="flex justify-between border-b border-darkerGray pb-2">
+                      <p className="font-bold uppercase">Year</p>
+                      <p>{project.year}</p>
+                    </div>
+
+                    <div className="flex justify-between border-b border-darkerGray pb-2">
+                      <p className="font-bold uppercase">Tools</p>
+                      <p className="text-right">{project.tools}</p>
+                    </div>
                   </div>
 
-                  <div className="flex justify-between border-b border-darkerGray pb-2">
-                    <p className="font-bold uppercase">Year</p>
-                    <p>{project.year}</p>
-                  </div>
-
-                  <div className="flex justify-between border-b border-darkerGray pb-2">
-                    <p className="font-bold uppercase">Tools</p>
-                    <p className="text-right">{project.tools}</p>
-                  </div>
-                </div>
-
-                <div className="flex justify-center pb-4">
-                  <a
-                    href={project.href}
-                    className="group relative overflow-hidden border border-black
+                  <div className="flex justify-center pb-4">
+                    <a
+                      href={project.href}
+                      className="group relative overflow-hidden border border-black
                 px-6 py-3 uppercase font-bold text-lg
                 before:absolute before:inset-0 before:bg-black
                 before:origin-left before:scale-x-0
                 before:transition-transform before:duration-300
                 hover:before:scale-x-100 cursor-pointer"
-                  >
-                    <span className="relative z-10 text-black group-hover:text-white transition-colors">
-                      View Project →
-                    </span>
-                  </a>
+                    >
+                      <span className="relative z-10 text-black group-hover:text-white transition-colors">
+                        View Project →
+                      </span>
+                    </a>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          );
-        })}
-      </motion.div>
+              </motion.div>
+            );
+          })}
+        </motion.div>
+      </div>
     </div>
   );
 }

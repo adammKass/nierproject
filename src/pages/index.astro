@@ -8,6 +8,7 @@ import { NAV_LINKS, SOCIAL_LINKS } from "../constants";
 import { Icon } from "astro-icon/components";
 import HeroLayout from "../layouts/HeroLayout.astro";
 import FloatingCubes from "../components/FloatingCubes.astro";
+import DarkThemeSwitcher from "../components/DarkThemeSwitcher.astro";
 ---
 
 <HeroLayout
@@ -69,7 +70,7 @@ import FloatingCubes from "../components/FloatingCubes.astro";
           SOCIAL_LINKS.map((link) => (
             <a
               href={link.href}
-              class="group relative overflow-hidden border border-black  transition-color duration-300 easeInOut text-black  p-2 before:absolute before:inset-0 before:bg-black
+              class="group relative overflow-hidden border border-black  transition-color duration-300 easeInOut text-black  p-2 before:absolute before:inset-0 before:bg-black bg-white
                 before:origin-left before:scale-x-0
                 before:transition-transform before:duration-300
                 hover:before:scale-x-100 cursor-pointer"
@@ -83,193 +84,194 @@ import FloatingCubes from "../components/FloatingCubes.astro";
             </a>
           ))
         }
+        <DarkThemeSwitcher />
+        <p class="text-black text-center">
+          © 2026 Adam Kascak. All rights reserved.
+        </p>
       </div>
-      <p class="text-black text-center">
-        © 2026 Adam Kascak. All rights reserved.
-      </p>
     </nav>
   </main>
-</HeroLayout>
 
-<script>
-  let animationId: number | null = null;
+  <script>
+    let animationId: number | null = null;
 
-  function initTriangles() {
-    const canvas = document.getElementById("triangles") as HTMLCanvasElement;
-    if (!canvas) return;
+    function initTriangles() {
+      const canvas = document.getElementById("triangles") as HTMLCanvasElement;
+      if (!canvas) return;
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const isMobile = window.matchMedia("(pointer: coarse)").matches;
-
-    let triangles: any[] = [];
-
-    const mouse = {
-      x: 0,
-      y: 0,
-      active: false,
-    };
-
-    // --------------------
-    // Resize
-    // --------------------
-    function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      generatePattern();
-    }
-
-    // --------------------
-    // Pattern
-    // --------------------
-    function generatePattern() {
-      triangles = [];
-
-      const spacing = 40;
-      const h = (spacing * Math.sqrt(3)) / 2;
-      const cx = canvas.width / 2;
-
-      for (let y = 0; y < canvas.height + spacing; y += h) {
-        for (let x = 0; x < canvas.width + spacing; x += spacing) {
-          const offset = Math.floor(y / h) % 2 === 0 ? 0 : spacing / 2;
-          const px = x + offset;
-
-          const dist = Math.abs(px - cx);
-          const maxDist = canvas.width / 2;
-          const t = dist / maxDist;
-
-          if (t < 0.3 && Math.random() > t * 1.5) continue;
-
-          triangles.push({
-            x: px,
-            y,
-            baseX: px,
-            baseY: y,
-            size: 4 + 20 * t,
-            flip: Math.random() > 0.5,
-            alpha: 0.3 + 0.7 * t,
-          });
-        }
-      }
-    }
-
-    // --------------------
-    // Mouse (desktop only)
-    // --------------------
-    function onMouseMove(e: MouseEvent) {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-      mouse.active = true;
-    }
-
-    function onMouseLeave() {
-      mouse.active = false;
-    }
-
-    if (!isMobile) {
-      window.addEventListener("mousemove", onMouseMove);
-      window.addEventListener("mouseleave", onMouseLeave);
-    }
-
-    // --------------------
-    // Draw
-    // --------------------
-    function draw(time: number) {
+      const ctx = canvas.getContext("2d");
       if (!ctx) return;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      for (const tri of triangles) {
-        const pulse = 1 + Math.sin(time * 0.0001 + tri.x * 0.01) * 0.2;
-        const size = tri.size * pulse;
+      const isMobile = window.matchMedia("(pointer: coarse)").matches;
 
-        let offsetX = 0;
-        let offsetY = 0;
-        let rotation = 0;
+      let triangles: any[] = [];
 
-        if (!isMobile && mouse.active) {
-          const dx = mouse.x - tri.x;
-          const dy = mouse.y - tri.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+      const mouse = {
+        x: 0,
+        y: 0,
+        active: false,
+      };
 
-          if (dist < 300) {
-            const force = 1 - dist / 300;
-            offsetX = -dx * force * 4;
-            offsetY = -dy * force * 4;
-            rotation = force * 0.5;
+      // --------------------
+      // Resize
+      // --------------------
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        generatePattern();
+      }
+
+      // --------------------
+      // Pattern
+      // --------------------
+      function generatePattern() {
+        triangles = [];
+
+        const spacing = 40;
+        const h = (spacing * Math.sqrt(3)) / 2;
+        const cx = canvas.width / 2;
+
+        for (let y = 0; y < canvas.height + spacing; y += h) {
+          for (let x = 0; x < canvas.width + spacing; x += spacing) {
+            const offset = Math.floor(y / h) % 2 === 0 ? 0 : spacing / 2;
+            const px = x + offset;
+
+            const dist = Math.abs(px - cx);
+            const maxDist = canvas.width / 2;
+            const t = dist / maxDist;
+
+            if (t < 0.3 && Math.random() > t * 1.5) continue;
+
+            triangles.push({
+              x: px,
+              y,
+              baseX: px,
+              baseY: y,
+              size: 4 + 20 * t,
+              flip: Math.random() > 0.5,
+              alpha: 0.3 + 0.7 * t,
+            });
           }
         }
-
-        tri.x += (tri.baseX - tri.x) * 0.05;
-        tri.y += (tri.baseY - tri.y) * 0.05;
-
-        ctx.save();
-        ctx.translate(tri.x + offsetX, tri.y + offsetY);
-        ctx.rotate(rotation);
-
-        ctx.globalAlpha = tri.alpha;
-        ctx.fillStyle = "#8b8b8b";
-
-        ctx.beginPath();
-
-        if (tri.flip) {
-          ctx.moveTo(0, 0);
-          ctx.lineTo(-size / 2, size);
-          ctx.lineTo(size / 2, size);
-        } else {
-          ctx.moveTo(0, size);
-          ctx.lineTo(-size / 2, 0);
-          ctx.lineTo(size / 2, 0);
-        }
-
-        ctx.closePath();
-        ctx.fill();
-        ctx.restore();
       }
 
-      animationId = requestAnimationFrame(draw);
-    }
+      // --------------------
+      // Mouse (desktop only)
+      // --------------------
+      function onMouseMove(e: MouseEvent) {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+        mouse.active = true;
+      }
 
-    // --------------------
-    // Cleanup (IMPORTANT)
-    // --------------------
-    function cleanup() {
-      if (animationId) cancelAnimationFrame(animationId);
-
-      window.removeEventListener("resize", resize);
-      window.removeEventListener("orientationchange", resize);
+      function onMouseLeave() {
+        mouse.active = false;
+      }
 
       if (!isMobile) {
-        window.removeEventListener("mousemove", onMouseMove);
-        window.removeEventListener("mouseleave", onMouseLeave);
+        window.addEventListener("mousemove", onMouseMove);
+        window.addEventListener("mouseleave", onMouseLeave);
       }
+
+      // --------------------
+      // Draw
+      // --------------------
+      function draw(time: number) {
+        if (!ctx) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (const tri of triangles) {
+          const pulse = 1 + Math.sin(time * 0.0001 + tri.x * 0.01) * 0.2;
+          const size = tri.size * pulse;
+
+          let offsetX = 0;
+          let offsetY = 0;
+          let rotation = 0;
+
+          if (!isMobile && mouse.active) {
+            const dx = mouse.x - tri.x;
+            const dy = mouse.y - tri.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < 300) {
+              const force = 1 - dist / 300;
+              offsetX = -dx * force * 4;
+              offsetY = -dy * force * 4;
+              rotation = force * 0.5;
+            }
+          }
+
+          tri.x += (tri.baseX - tri.x) * 0.05;
+          tri.y += (tri.baseY - tri.y) * 0.05;
+
+          ctx.save();
+          ctx.translate(tri.x + offsetX, tri.y + offsetY);
+          ctx.rotate(rotation);
+
+          ctx.globalAlpha = tri.alpha;
+          ctx.fillStyle = "#8b8b8b";
+
+          ctx.beginPath();
+
+          if (tri.flip) {
+            ctx.moveTo(0, 0);
+            ctx.lineTo(-size / 2, size);
+            ctx.lineTo(size / 2, size);
+          } else {
+            ctx.moveTo(0, size);
+            ctx.lineTo(-size / 2, 0);
+            ctx.lineTo(size / 2, 0);
+          }
+
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
+        }
+
+        animationId = requestAnimationFrame(draw);
+      }
+
+      // --------------------
+      // Cleanup (IMPORTANT)
+      // --------------------
+      function cleanup() {
+        if (animationId) cancelAnimationFrame(animationId);
+
+        window.removeEventListener("resize", resize);
+        window.removeEventListener("orientationchange", resize);
+
+        if (!isMobile) {
+          window.removeEventListener("mousemove", onMouseMove);
+          window.removeEventListener("mouseleave", onMouseLeave);
+        }
+      }
+
+      // --------------------
+      // Init
+      // --------------------
+      resize();
+      animationId = requestAnimationFrame(draw);
+
+      window.addEventListener("resize", resize);
+      window.addEventListener("orientationchange", resize);
+
+      document.addEventListener("astro:before-swap", cleanup, { once: true });
     }
 
-    // --------------------
-    // Init
-    // --------------------
-    resize();
-    animationId = requestAnimationFrame(draw);
+    // run on load + navigation
+    initTriangles();
+    document.addEventListener("astro:page-load", initTriangles);
+  </script>
 
-    window.addEventListener("resize", resize);
-    window.addEventListener("orientationchange", resize);
+  <script>
+    document.documentElement.classList.add("js");
 
-    document.addEventListener("astro:before-swap", cleanup, { once: true });
-  }
+    window.addEventListener("load", () => {
+      document.documentElement.classList.add("loaded");
+    });
 
-  // run on load + navigation
-  initTriangles();
-  document.addEventListener("astro:page-load", initTriangles);
-</script>
-
-<script>
-  document.documentElement.classList.add("js");
-
-  window.addEventListener("load", () => {
-    document.documentElement.classList.add("loaded");
-  });
-
-  document.addEventListener("astro:page-load", () => {
-    document.documentElement.classList.add("loaded");
-  });
-</script>
+    document.addEventListener("astro:page-load", () => {
+      document.documentElement.classList.add("loaded");
+    });
+  </script>
+</HeroLayout>
