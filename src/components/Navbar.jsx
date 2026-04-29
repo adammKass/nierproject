@@ -48,7 +48,7 @@ export default function Navbar({ pathname }) {
                           pathname.startsWith(link.href + "/")
                     )
                       ? "text-white before:scale-x-100 h-full"
-                      : "text-black bg-lighterGray"
+                      : "text-black bg-white"
                   }
                 `}
               >
@@ -74,7 +74,7 @@ export default function Navbar({ pathname }) {
             ))}
           </div>
           {/* Logo */}
-          <span class="block lg:hidden text-2xl  z-15 text-center">
+          <a href="/" class="block lg:hidden text-2xl  z-15 text-center">
             <span class="font-decorative text-[2.2rem]  ">A</span>
             dam
             <span class="inline-block text-black">
@@ -83,7 +83,7 @@ export default function Navbar({ pathname }) {
               </span>
               aščák
             </span>
-          </span>
+          </a>
 
           {/* Hamburger */}
           <button
@@ -144,7 +144,7 @@ export default function Navbar({ pathname }) {
                 }, 200); // match your animation duration
               }}
               className={`relative px-4 py-3 uppercase text-lg
-                bg-lighterGray
+                bg-white
                 
                 before:absolute before:inset-0 before:bg-black
                 before:origin-left before:scale-x-0
