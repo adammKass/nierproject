@@ -10,14 +10,20 @@ import HeroLayout from "../layouts/HeroLayout.astro";
 import FloatingCubes from "../components/FloatingCubes.astro";
 ---
 
-<HeroLayout title="Home">
+<HeroLayout
+  title="Adam Kaščák - Web Developer & 3D Artist"
+  description="Welcome to my portfolio! I'm a passionate web developer and 3D artist based in Bratislava, Slovakia."
+>
   <main
-    class="relative grow flex flex-col items-center justify-between relative overflow-hidden bg-lightGray gap-3"
+    class="opacity-0 transition-opacity duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] fade-in
+          relative grow flex flex-col items-center justify-between relative overflow-hidden bg-lightGray gap-3"
   >
     <canvas class="absolute inset-0" id="triangles"></canvas>
     <div class="mt-[15dvh] md:mt-[10dvh] flex flex-col gap-[5dvh]">
       <h1
-        class="text-6xl sm:text-7xl md:text-8xl 2xl:text-[9rem] z-15 text-center"
+        class="opacity-0 translate-y-6
+         transition-all duration-1200 ease-out
+          fade-in text-6xl sm:text-7xl md:text-8xl 2xl:text-[9rem] z-15 text-center"
       >
         <span
           class="font-decorative text-[6rem] sm:text-[8rem] md:text-[12rem] 2xl:text-[17rem] mr-[-0.3em]"
@@ -39,7 +45,10 @@ import FloatingCubes from "../components/FloatingCubes.astro";
           NAV_LINKS.map((link, index) => (
             <a
               href={link.href}
-              class={`relative text-xl 2xl:text-2xl uppercase
+              style={`transition-delay: ${index * 80}ms`}
+              class={`opacity-0 translate-y-4
+        fade-in
+        transition-all duration-500 ease-out relative text-xl 2xl:text-2xl uppercase
         after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 2xl:after:-bottom-2 font-light
         after:h-[2px] after:w-0 after:bg-black
         after:transition-all after:duration-300
@@ -83,24 +92,18 @@ import FloatingCubes from "../components/FloatingCubes.astro";
 </HeroLayout>
 
 <script>
+  let animationId: number | null = null;
+
   function initTriangles() {
-    if (running) return;
-    running = true;
     const canvas = document.getElementById("triangles") as HTMLCanvasElement;
+    if (!canvas) return;
+
     const ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
-    if (!ctx) throw new Error("Canvas not supported");
+    const isMobile = window.matchMedia("(pointer: coarse)").matches;
 
-    // --------------------
-    // Resize
-    // --------------------
-    function resize(): void {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      generatePattern();
-    }
-
-    window.addEventListener("resize", resize);
+    let triangles: any[] = [];
 
     const mouse = {
       x: 0,
@@ -108,121 +111,100 @@ import FloatingCubes from "../components/FloatingCubes.astro";
       active: false,
     };
 
-    window.addEventListener("mousemove", (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-      mouse.active = true;
-    });
-
-    window.addEventListener("mouseleave", () => {
-      mouse.active = false;
-    });
-
     // --------------------
-    // Types
+    // Resize
     // --------------------
-    type TriangleData = {
-      x: number;
-      y: number;
-      size: number;
-      flip: boolean;
-      alpha: number;
-      baseX: number;
-      baseY: number;
-    };
-
-    let triangles: TriangleData[] = [];
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      generatePattern();
+    }
 
     // --------------------
-    // Pattern generation
+    // Pattern
     // --------------------
-    function generatePattern(): void {
+    function generatePattern() {
       triangles = [];
 
       const spacing = 40;
       const h = (spacing * Math.sqrt(3)) / 2;
-
       const cx = canvas.width / 2;
 
       for (let y = 0; y < canvas.height + spacing; y += h) {
         for (let x = 0; x < canvas.width + spacing; x += spacing) {
           const offset = Math.floor(y / h) % 2 === 0 ? 0 : spacing / 2;
-
           const px = x + offset;
 
-          // distance from center (horizontal only)
           const dist = Math.abs(px - cx);
           const maxDist = canvas.width / 2;
+          const t = dist / maxDist;
 
-          const t = dist / maxDist; // 0 center → 1 edge
-
-          // --- CONTROL AREA ---
-          // fewer triangles near center
-          const densityThreshold = 0.3; // tweak this
-
-          if (t < densityThreshold && Math.random() > t * 1.5) {
-            continue;
-          }
-
-          // size falloff (slightly smaller in center)
-          const size = 4 + 20 * t;
-
-          // opacity (optional subtle fade toward center)
-          const alpha = 0.3 + 0.7 * t;
+          if (t < 0.3 && Math.random() > t * 1.5) continue;
 
           triangles.push({
             x: px,
             y,
             baseX: px,
             baseY: y,
-            size,
+            size: 4 + 20 * t,
             flip: Math.random() > 0.5,
-            alpha,
+            alpha: 0.3 + 0.7 * t,
           });
         }
       }
     }
 
     // --------------------
+    // Mouse (desktop only)
+    // --------------------
+    function onMouseMove(e: MouseEvent) {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      mouse.active = true;
+    }
+
+    function onMouseLeave() {
+      mouse.active = false;
+    }
+
+    if (!isMobile) {
+      window.addEventListener("mousemove", onMouseMove);
+      window.addEventListener("mouseleave", onMouseLeave);
+    }
+
+    // --------------------
     // Draw
     // --------------------
-    function draw(time: number): void {
-      if (!ctx) throw new Error("Canvas not supported");
+    function draw(time: number) {
+      if (!ctx) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       for (const tri of triangles) {
-        // subtle "breathing" (VERY light animation)
         const pulse = 1 + Math.sin(time * 0.0001 + tri.x * 0.01) * 0.2;
-
         const size = tri.size * pulse;
-
-        const dx = mouse.x - tri.x;
-        const dy = mouse.y - tri.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
 
         let offsetX = 0;
         let offsetY = 0;
         let rotation = 0;
 
-        if (mouse.active && dist < 300) {
-          const force = 1 - dist / 300;
+        if (!isMobile && mouse.active) {
+          const dx = mouse.x - tri.x;
+          const dy = mouse.y - tri.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
 
-          offsetX = -dx * force * 4;
-          offsetY = -dy * force * 4;
-
-          rotation = force * 0.5; // subtle rotation
+          if (dist < 300) {
+            const force = 1 - dist / 300;
+            offsetX = -dx * force * 4;
+            offsetY = -dy * force * 4;
+            rotation = force * 0.5;
+          }
         }
 
-        // smooth return to base
         tri.x += (tri.baseX - tri.x) * 0.05;
         tri.y += (tri.baseY - tri.y) * 0.05;
 
-        const drawX = tri.x + offsetX;
-        const drawY = tri.y + offsetY;
-
         ctx.save();
-
-        ctx.translate(drawX, drawY);
+        ctx.translate(tri.x + offsetX, tri.y + offsetY);
         ctx.rotate(rotation);
 
         ctx.globalAlpha = tri.alpha;
@@ -242,22 +224,52 @@ import FloatingCubes from "../components/FloatingCubes.astro";
 
         ctx.closePath();
         ctx.fill();
-
         ctx.restore();
       }
 
-      requestAnimationFrame(draw);
+      animationId = requestAnimationFrame(draw);
+    }
+
+    // --------------------
+    // Cleanup (IMPORTANT)
+    // --------------------
+    function cleanup() {
+      if (animationId) cancelAnimationFrame(animationId);
+
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("orientationchange", resize);
+
+      if (!isMobile) {
+        window.removeEventListener("mousemove", onMouseMove);
+        window.removeEventListener("mouseleave", onMouseLeave);
+      }
     }
 
     // --------------------
     // Init
     // --------------------
     resize();
-    requestAnimationFrame(draw);
+    animationId = requestAnimationFrame(draw);
+
+    window.addEventListener("resize", resize);
+    window.addEventListener("orientationchange", resize);
+
+    document.addEventListener("astro:before-swap", cleanup, { once: true });
   }
-  let running = false;
+
+  // run on load + navigation
   initTriangles();
+  document.addEventListener("astro:page-load", initTriangles);
+</script>
+
+<script>
+  document.documentElement.classList.add("js");
+
+  window.addEventListener("load", () => {
+    document.documentElement.classList.add("loaded");
+  });
+
   document.addEventListener("astro:page-load", () => {
-    initTriangles();
+    document.documentElement.classList.add("loaded");
   });
 </script>

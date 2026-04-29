@@ -1,7 +1,4 @@
 import HornThumb from "./assets/GraphicDesign/Horn/Horn_ThumbNail.jpg";
-import HornLogo from "./assets/GraphicDesign/Horn/Horn_Logo.jpg";
-import HornDesktop from "./assets/GraphicDesign/Horn/Horn_Desktop Full.webp";
-import HornMobile from "./assets/GraphicDesign/Horn/Horn_Mobile.webp";
 
 import BielaLiniaThumb from "./assets/GraphicDesign/BielaLinia/BielaLinia_Thumb.jpg";
 import BielaLiniaDesktop from "./assets/GraphicDesign/BielaLinia/BielaLinia_Desktop Full.webp";
@@ -290,20 +287,6 @@ export const WEB_LINKS = [
     year: "2025",
     text: "H is a fictional fitness brand inspired by boxing, martial arts, and high-intensity conditioning. The goal was to express the energy, discipline, and character of combat sports while keeping the brand accessible to everyday athletes. The visual identity balances boldness with approachability — strong but not intimidating.\nThe logo, depicting a stylized bull’s skull, is rounded and simplified to maintain a dynamic but friendly appearance. Angled elements appear throughout the layout, reinforcing a sense of motion. The landing page includes the following sections: Home Banner | Equipment | Trainings | Prices | Instructors | Reviews | Gallery | Footer.\nThe project was designed in Figma and developed with HTML5, CSS, and JavaScript, with a strong focus on responsiveness, accessibility, and optimized performance.",
     thumb: HornThumb,
-    images: [
-      {
-        image: HornThumb,
-      },
-      {
-        image: HornLogo,
-      },
-      {
-        image: HornDesktop,
-      },
-      {
-        image: HornMobile,
-      },
-    ],
   },
   {
     id: "BielaLinia",
