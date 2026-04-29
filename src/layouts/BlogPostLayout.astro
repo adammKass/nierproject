@@ -1,0 +1,127 @@
+---
+import { Icon } from "astro-icon/components";
+import Layout from "./Layout.astro";
+
+const { frontmatter } = Astro.props;
+---
+
+<Layout title={frontmatter.title}>
+  <main class="main flex flex-col items-center px-4">
+    <div class="max-w-200 flex flex-col gap-4 lg:gap-8 py-2 pb-4 lg:pb-8">
+      <a
+        href="/web-design"
+        class="group relative overflow-hidden flex flex-row items-center before:absolute before:inset-0 before:bg-black
+                before:origin-left before:scale-x-0
+                before:transition-transform before:duration-300
+                hover:before:scale-x-100 cursor-pointer p-2 pr-4 gap-2 border border-black self-start bg-white w-fit"
+      >
+        <Icon
+          name="material-symbols:arrow-left"
+          class="z-10 text-2xl transition-colors duration-300 stroke-current
+                  text-black group-hover:text-white"
+        />
+        <span
+          class="z-10 flex items-center
+                  transition-colors duration-300
+                  text-black group-hover:text-white"
+          >Back</span
+        ></a
+      >
+      <article class="w-full bg-white">
+        <div class="w-full bg-black">
+          <h1
+            class="text-3xl md:text-4xl font-bold leading-tight text-white py-4 lg:py-8 px-4 md:px-8 2xl:px-16 max-w-prose"
+          >
+            {frontmatter.title}
+          </h1>
+          <img
+            src={frontmatter.image}
+            alt={frontmatter.title}
+            class="w-full rounded-xl aspect-video object-cover"
+          />
+        </div>
+
+        <!-- TAG + DATE -->
+        <div class="flex w-full items-center my-4">
+          <div
+            class="px-4 md:px-8 2xl:px-16 flex gap-4 w-full border-b border-darkerGray pb-4"
+          >
+            <div class="flex gap-2">
+              <Icon name="material-symbols:tag" class="text-2xl" />
+              <span class="uppercase font-light">{frontmatter.tag}</span>
+            </div>
+            <div class="flex gap-2">
+              <Icon
+                name="material-symbols:calendar-month-outline-sharp"
+                class="text-2xl"
+              />
+              <span class="uppercase font-light"
+                >{new Date(frontmatter.date).toLocaleDateString()}</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- TITLE -->
+
+        <!-- MAIN IMAGE -->
+
+        <!-- CONTENT -->
+        <div
+          class="prose prose-lg max-w-none
+              prose-headings:font-bold
+              prose-img:rounded-lg
+              prose-img:mx-auto
+              prose-figcaption:text-center
+              prose-figcaption:text-sm
+              prose-blockquote:border-l-4
+              prose-blockquote:border-black
+              prose-blockquote:pl-4
+              prose-blockquote:italic
+              prose-blockquote:text-3xl
+            px-4 md:px-8 2xl:px-16 pb-12"
+        >
+          <slot />
+        </div>
+      </article>
+      <button
+        id="scrollTopBtn"
+        class="fixed bottom-6 right-6 group overflow-hidden flex flex-row items-center before:absolute before:inset-0 before:bg-black
+                before:origin-left before:scale-x-0
+                before:transition-transform before:duration-300
+                hover:before:scale-x-100 cursor-pointer p-2 pr-4 gap-2 border border-black bg-white w-fit self-center"
+      >
+        <Icon
+          name="material-symbols:arrow-left"
+          class="z-10 text-2xl transition-colors duration-300 stroke-current
+                  text-black group-hover:text-white rotate-90"
+        />
+        <span
+          class="z-10 flex items-center
+                  transition-colors duration-300
+                  text-black group-hover:text-white"
+          >To Top</span
+        ></button
+      >
+    </div>
+  </main>
+</Layout>
+
+<script>
+  const btn = document.getElementById("scrollTopBtn") as HTMLButtonElement;
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+      btn.classList.remove("hidden");
+    } else {
+      btn.classList.add("hidden");
+    }
+  });
+
+  btn.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+</script>

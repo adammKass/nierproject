@@ -1,0 +1,34 @@
+---
+import { Icon } from "astro-icon/components";
+import { SOCIAL_LINKS } from "../constants";
+---
+
+<div class="w-full border-black z-20 border-t bg-lightGray py-6 sm:py-0">
+  <nav
+    class="content flex flex-col sm:flex-row items-center h-16 gap-3 w-full justify-between"
+  >
+    <div class="flex items-center gap-3">
+      {
+        SOCIAL_LINKS.map((link) => (
+          <a
+            href={link.href}
+            class="group relative overflow-hidden border border-black  transition-color duration-300 easeInOut text-black  p-2 before:absolute before:inset-0 before:bg-black bg-white
+                before:origin-left before:scale-x-0
+                before:transition-transform before:duration-300
+                hover:before:scale-x-100 cursor-pointer"
+          >
+            <Icon
+              name={link.icon}
+              class="text-lg relative z-10 flex items-center gap-3
+                  transition-colors duration-300
+                  text-black group-hover:text-white"
+            />
+          </a>
+        ))
+      }
+    </div>
+    <p class="text-black text-center sm:text-left">
+      © 2026 Adam Kascak. All rights reserved.
+    </p>
+  </nav>
+</div>

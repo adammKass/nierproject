@@ -1,0 +1,15 @@
+---
+import { Image } from "astro:assets";
+import { WEB_LINKS } from "../../constants";
+import Layout from "../../layouts/Layout.astro";
+import WebProjects from "../../components/WebProjects";
+---
+
+<Layout title="Home">
+  <main class="main">
+    <div class="content">
+      <h1 class="headingMain">Web Design</h1>
+      <WebProjects projects={WEB_LINKS} client:load />
+    </div>
+  </main>
+</Layout>

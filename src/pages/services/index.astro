@@ -1,0 +1,15 @@
+---
+import { SERVICES_LINKS } from "../../constants";
+import Layout from "../../layouts/Layout.astro";
+
+import ServicesProjects from "../../components/ServicesProjects";
+---
+
+<Layout title="Home">
+  <main class="main">
+    <div class="content">
+      <h1 class="headingMain">Services</h1>
+      <ServicesProjects projects={SERVICES_LINKS} client:load />
+    </div>
+  </main>
+</Layout>

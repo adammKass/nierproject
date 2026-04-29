@@ -1,0 +1,62 @@
+---
+import { EXPERIENCE_LINKS, ILLUSTRATION_LINKS } from "../../constants";
+import Layout from "../../layouts/Layout.astro";
+import IllustrationProjects from "../../components/IllustrationProjects";
+import { Image } from "astro:assets";
+import Portrait from "../../assets/portrait.svg";
+import Portrait2 from "../../assets/portrait2.png";
+import AnimatedColumn from "../../components/AnimatedColumn.jsx";
+---
+
+<Layout title="About">
+  <main class="main">
+    <div class="content flex flex-col gap-4 lg:gap-0">
+      <h1 class="headingMain">About Me</h1>
+      <div class="grid grid-cols-12 gap-7 gridContainerMargin mb-7">
+        {/* LEFT COLUMN */}
+        <AnimatedColumn client:visible>
+          <div class="flex flex-col gap-4 col-span-full sm:col-span-6 z-30">
+            <!-- Div 1 -->
+            <div class="flex flex-col bg-white relative h-fit">
+              <h2 class="subheadingBlack">Precision Through everything</h2>
+              <p class="p-4 text-gray-700">
+                My name is Adam Kaščák. I am a freelance web developer and
+                designer based in Nitra, Slovakia, specializing in creating
+                modern, clean, and professional websites.
+              </p>
+              <div class="w-[95%] h-px bg-darkerGray mx-4"></div>
+              <p class="p-4 text-gray-700">
+                With experience in both 3D graphics and illustration, I enjoy
+                combining hand-painted artwork or 3D elements with contemporary
+                web design.
+              </p>
+            </div>
+
+            <!-- Div 2 -->
+            <div class="bg-white relative flex flex-col h-fit">
+              <h2 class="subheadingBlack">Experience</h2>
+              {
+                EXPERIENCE_LINKS.map((link) => (
+                  <div class="p-4">
+                    <h3 class="font-bold text-lg uppercase">{link.role}</h3>
+                    <p>{link.company}</p>
+                    <p class="text-sm text-gray-700 font-light">{link.time}</p>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </AnimatedColumn>
+      </div>
+      <div
+        class="block col-span-full sm:absolute h-full aspect-square sm:max-w-[50vw] bottom-0 right-0 z-10"
+      >
+        <Image
+          src={Portrait2}
+          alt="About Image"
+          class="object-cover w-full h-full"
+        />
+      </div>
+    </div>
+  </main>
+</Layout>

@@ -1,17 +1,263 @@
 ---
+import { Image } from "astro:assets";
+import Hero from "../assets/hero2.webp";
+import HeroPerson from "../assets/heroPerson.webp";
+import HeroPersonMobile from "../assets/heroPersonMobile.webp";
 
+import { NAV_LINKS, SOCIAL_LINKS } from "../constants";
+import { Icon } from "astro-icon/components";
+import HeroLayout from "../layouts/HeroLayout.astro";
+import FloatingCubes from "../components/FloatingCubes.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<HeroLayout title="Home">
+  <main
+    class="relative grow flex flex-col items-center justify-between relative overflow-hidden bg-lightGray gap-3"
+  >
+    <canvas class="absolute inset-0" id="triangles"></canvas>
+    <div class="mt-[15dvh] md:mt-[10dvh] flex flex-col gap-[5dvh]">
+      <h1
+        class="text-6xl sm:text-7xl md:text-8xl 2xl:text-[9rem] z-15 text-center"
+      >
+        <span
+          class="font-decorative text-[6rem] sm:text-[8rem] md:text-[12rem] 2xl:text-[17rem] mr-[-0.3em]"
+        >
+          A
+        </span>dam
+        <span class="inline-block text-black">
+          <span
+            class="font-decorative text-[6rem] sm:text-[8rem] md:text-[12rem] 2xl:text-[17rem] tracking-tight mr-[-0.2em]"
+          >
+            K
+          </span>aščák
+        </span>
+      </h1>
+      <div
+        class="flex flex-col gap-3 md:gap-3 2xl:gap-6 items-center z-10 justify-self-start"
+      >
+        {
+          NAV_LINKS.map((link, index) => (
+            <a
+              href={link.href}
+              class={`relative text-xl 2xl:text-2xl uppercase
+        after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 2xl:after:-bottom-2 font-light
+        after:h-[2px] after:w-0 after:bg-black
+        after:transition-all after:duration-300
+        hover:after:w-full ${index === 0 ? "hidden" : "block"}`}
+            >
+              {link.name}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+
+    <nav
+      class="w-full flex flex-col items-center gap-3 bg-white/20 backdrop-blur-xl z-20 py-4"
+    >
+      <div class="flex items-center gap-3">
+        {
+          SOCIAL_LINKS.map((link) => (
+            <a
+              href={link.href}
+              class="group relative overflow-hidden border border-black  transition-color duration-300 easeInOut text-black  p-2 before:absolute before:inset-0 before:bg-black
+                before:origin-left before:scale-x-0
+                before:transition-transform before:duration-300
+                hover:before:scale-x-100 cursor-pointer"
+            >
+              <Icon
+                name={link.icon}
+                class="text-lg relative z-10 flex items-center gap-3
+                  transition-colors duration-300
+                  text-black group-hover:text-white"
+              />
+            </a>
+          ))
+        }
+      </div>
+      <p class="text-black text-center">
+        © 2026 Adam Kascak. All rights reserved.
+      </p>
+    </nav>
+  </main>
+</HeroLayout>
+
+<script>
+  function initTriangles() {
+    if (running) return;
+    running = true;
+    const canvas = document.getElementById("triangles") as HTMLCanvasElement;
+    const ctx = canvas.getContext("2d");
+
+    if (!ctx) throw new Error("Canvas not supported");
+
+    // --------------------
+    // Resize
+    // --------------------
+    function resize(): void {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      generatePattern();
+    }
+
+    window.addEventListener("resize", resize);
+
+    const mouse = {
+      x: 0,
+      y: 0,
+      active: false,
+    };
+
+    window.addEventListener("mousemove", (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      mouse.active = true;
+    });
+
+    window.addEventListener("mouseleave", () => {
+      mouse.active = false;
+    });
+
+    // --------------------
+    // Types
+    // --------------------
+    type TriangleData = {
+      x: number;
+      y: number;
+      size: number;
+      flip: boolean;
+      alpha: number;
+      baseX: number;
+      baseY: number;
+    };
+
+    let triangles: TriangleData[] = [];
+
+    // --------------------
+    // Pattern generation
+    // --------------------
+    function generatePattern(): void {
+      triangles = [];
+
+      const spacing = 40;
+      const h = (spacing * Math.sqrt(3)) / 2;
+
+      const cx = canvas.width / 2;
+
+      for (let y = 0; y < canvas.height + spacing; y += h) {
+        for (let x = 0; x < canvas.width + spacing; x += spacing) {
+          const offset = Math.floor(y / h) % 2 === 0 ? 0 : spacing / 2;
+
+          const px = x + offset;
+
+          // distance from center (horizontal only)
+          const dist = Math.abs(px - cx);
+          const maxDist = canvas.width / 2;
+
+          const t = dist / maxDist; // 0 center → 1 edge
+
+          // --- CONTROL AREA ---
+          // fewer triangles near center
+          const densityThreshold = 0.3; // tweak this
+
+          if (t < densityThreshold && Math.random() > t * 1.5) {
+            continue;
+          }
+
+          // size falloff (slightly smaller in center)
+          const size = 4 + 20 * t;
+
+          // opacity (optional subtle fade toward center)
+          const alpha = 0.3 + 0.7 * t;
+
+          triangles.push({
+            x: px,
+            y,
+            baseX: px,
+            baseY: y,
+            size,
+            flip: Math.random() > 0.5,
+            alpha,
+          });
+        }
+      }
+    }
+
+    // --------------------
+    // Draw
+    // --------------------
+    function draw(time: number): void {
+      if (!ctx) throw new Error("Canvas not supported");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (const tri of triangles) {
+        // subtle "breathing" (VERY light animation)
+        const pulse = 1 + Math.sin(time * 0.0001 + tri.x * 0.01) * 0.2;
+
+        const size = tri.size * pulse;
+
+        const dx = mouse.x - tri.x;
+        const dy = mouse.y - tri.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        let offsetX = 0;
+        let offsetY = 0;
+        let rotation = 0;
+
+        if (mouse.active && dist < 300) {
+          const force = 1 - dist / 300;
+
+          offsetX = -dx * force * 4;
+          offsetY = -dy * force * 4;
+
+          rotation = force * 0.5; // subtle rotation
+        }
+
+        // smooth return to base
+        tri.x += (tri.baseX - tri.x) * 0.05;
+        tri.y += (tri.baseY - tri.y) * 0.05;
+
+        const drawX = tri.x + offsetX;
+        const drawY = tri.y + offsetY;
+
+        ctx.save();
+
+        ctx.translate(drawX, drawY);
+        ctx.rotate(rotation);
+
+        ctx.globalAlpha = tri.alpha;
+        ctx.fillStyle = "#8b8b8b";
+
+        ctx.beginPath();
+
+        if (tri.flip) {
+          ctx.moveTo(0, 0);
+          ctx.lineTo(-size / 2, size);
+          ctx.lineTo(size / 2, size);
+        } else {
+          ctx.moveTo(0, size);
+          ctx.lineTo(-size / 2, 0);
+          ctx.lineTo(size / 2, 0);
+        }
+
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.restore();
+      }
+
+      requestAnimationFrame(draw);
+    }
+
+    // --------------------
+    // Init
+    // --------------------
+    resize();
+    requestAnimationFrame(draw);
+  }
+  let running = false;
+  initTriangles();
+  document.addEventListener("astro:page-load", () => {
+    initTriangles();
+  });
+</script>

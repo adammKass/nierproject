@@ -1,0 +1,224 @@
+---
+import { Image } from "astro:assets";
+import Hero from "../assets/hero2.webp";
+import HeroPerson from "../assets/heroPerson.webp";
+import HeroPersonMobile from "../assets/heroPersonMobile.webp";
+
+import { NAV_LINKS, SOCIAL_LINKS } from "../constants";
+import { Icon } from "astro-icon/components";
+import HeroLayout from "../layouts/HeroLayout.astro";
+import FloatingCubes from "../components/FloatingCubes.astro";
+---
+
+<HeroLayout title="Home">
+  <FloatingCubes />
+  <main
+    class="main grow flex items-start justify-center relative overflow-hidden bg-darkerGray"
+  >
+    <h1
+      class="text-6xl sm:text-7xl md:text-8xl 2xl:text-[9rem] absolute top-[8dvh] left-0 right-0 mx-auto z-15 text-center"
+    >
+      <span
+        class="font-decorative text-[6rem] sm:text-[8rem] md:text-[12rem] 2xl:text-[17rem] mr-[-0.3em]"
+      >
+        A
+      </span>dam
+      <span class="inline-block text-white">
+        <span
+          class="font-decorative text-[6rem] sm:text-[8rem] md:text-[12rem] 2xl:text-[17rem] tracking-tight mr-[-0.2em]"
+        >
+          K
+        </span>aščák
+      </span>
+    </h1>
+
+    <!-- <div class="absolute bottom-[5vh] left-1/2 -translate-x-1/2 z-40">
+      <div class="relative w-10 h-10">
+        
+        <div class="w-2 h-2 bg-black rounded-full absolute inset-0 m-auto z-10">
+        </div>
+
+       
+        <div
+          class="absolute inset-0 rounded-full border-2 border-black animate-ping"
+        >
+        </div>
+        <div
+          class="absolute inset-0 rounded-full border-2 border-black animate-ping [animation-delay:5s]"
+        >
+        </div>
+      </div>
+    </div> -->
+
+    <div class="inset-0 absolute z-5 desk">
+      <Image
+        src={Hero}
+        alt="Hero image"
+        class="w-[105%] h-[105%] object-cover object-bottom"
+      />
+    </div>
+    <div
+      class="absolute bottom-0 z-10 overflow-hidden h-full flex flex-col justify-end"
+    >
+      <picture class="absolute inset-0 z-0">
+        <!-- Mobile image -->
+        <source srcset={HeroPersonMobile.src} media="(max-width: 768px)" />
+
+        <!-- Default (desktop) -->
+        <Image
+          src={HeroPerson}
+          alt="Hero person"
+          class="w-full h-full object-cover pointer-events-none"
+        />
+      </picture>
+      <div
+        class="relative flex flex-col justify-end w-[100vw] md:w-[960px] 2xl:w-[1200px] max-w-[1000px] md:px-[120px] md:pr-[150px] pb-[clamp(4.5rem,8vh+1vw,8rem)] md:pb-[clamp(2rem,5vh+1vw,4rem)] items-center md:items-stretch"
+      >
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 w-[60%] min-w-[300px] md:w-auto md:min-w-auto"
+        >
+          <div class="relative flex flex-col gap-2 pl-4">
+            <div class="absolute left-0 top-0 w-[2px] h-full bg-black"></div>
+            {
+              NAV_LINKS.map((link, index) => (
+                <a
+                  href={link.href}
+                  class={`group relative 
+                uppercase selectButtonSize text-left py-1 2xl:py-2 px-2 pr-6
+                before:absolute before:inset-0 
+                before:origin-left before:scale-x-0
+                before:transition-transform before:duration-300
+                hover:before:scale-x-100   ${index === 0 ? "hidden" : "block"}
+                ${index === NAV_LINKS.length - 1 ? "bg-black before:bg-white" : "bg-white before:bg-black"}`}
+                >
+                  <span
+                    class={`relative z-10  transition-colors duration-300 text-sm xl:text-base 2xl:text-lg ${index === NAV_LINKS.length - 1 ? "text-white group-hover:text-black" : "text-black group-hover:text-white"}`}
+                  >
+                    {link.name}
+                  </span>
+                </a>
+              ))
+            }
+          </div>
+
+          <div
+            class="flex flex-col z-20 items-center md:items-end justify-end gap-2 mt-8 md:mt-0"
+          >
+            <div
+              class="flex flex-row md:flex-col z-20 items-stretch md:items-end justify-between md:justify-end gap-2 w-full md:w-fit"
+            >
+              {
+                SOCIAL_LINKS.map((link) => (
+                  <a
+                    href={link.href}
+                    class="bg-white group relative overflow-hidden border border-black w-fit transition-color duration-300 easeInOut text-black  p-2 before:absolute before:inset-0 before:bg-black
+                before:origin-left before:scale-x-0
+                before:transition-transform before:duration-300
+                hover:before:scale-x-100 cursor-pointer"
+                  >
+                    <Icon
+                      name={link.icon}
+                      class="text-xl relative z-10 flex items-center gap-3
+                  transition-colors duration-300
+                  text-black group-hover:text-white"
+                    />
+                  </a>
+                ))
+              }
+            </div>
+            <a
+              href="mailto:example@email.com"
+              class="group relative overflow-hidden flex flex-row items-center font-light before:absolute before:inset-0 before:bg-black
+                before:origin-left before:scale-x-0
+                before:transition-transform before:duration-300
+                hover:before:scale-x-100 cursor-pointer p-4 py-1 md:py-2 gap-2 border border-black bg-white"
+            >
+              <Icon
+                name="material-symbols:mail-sharp"
+                class="z-10 text-2xl transition-colors duration-300
+                  text-black group-hover:text-white"
+              />
+              <span
+                class="z-10 flex items-center
+                  transition-colors duration-300
+                  text-black group-hover:text-white"
+                >example@email.com</span
+              >
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</HeroLayout>
+
+<script>
+  const desk = document.querySelectorAll<HTMLElement>(".desk");
+
+  let mouseX = 0;
+  let mouseY = 0;
+
+  window.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX / window.innerWidth - 0.5;
+    mouseY = e.clientY / window.innerHeight - 0.5;
+  });
+
+  function animate() {
+    desk.forEach((desk, i) => {
+      const depth = (i + 1) * 20;
+
+      const translateX = mouseX * depth;
+
+      desk.style.transform = `
+        translate3d(${translateX}px, 0, 0)
+
+      `;
+    });
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+</script>
+
+<!-- <div
+      class="absolute bottom-[12dvh] left-0 right-0 mx-auto flex flex-col md:gap-[2dvh] 2xl:gap-[3dvh] items-center z-10"
+    >
+      {
+        NAV_LINKS.map((link, index) => (
+          <a
+            href={link.href}
+            class={`relative text-[4dvh] 2xl:text-[3dvh] uppercase
+        after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 2xl:after:-bottom-2
+        after:h-[2px] after:w-0 after:bg-black
+        after:transition-all after:duration-300
+        hover:after:w-full ${index === 0 ? "hidden" : "block"}`}
+          >
+            {link.name}
+          </a>
+        ))
+      }
+    </div> -->
+
+<!-- <div
+      class="absolute left-[2vw] top-1/2 -translate-y-1/2 flex flex-col gap-3 z-10"
+    >
+      {
+        SOCIAL_LINKS.map((link) => (
+          <a
+            href={link.href}
+            class="bg-lightGray group relative overflow-hidden border border-black  transition-color duration-300 easeInOut text-black  p-2 before:absolute before:inset-0 before:bg-black
+                before:origin-left before:scale-x-0
+                before:transition-transform before:duration-300
+                hover:before:scale-x-100 cursor-pointer"
+          >
+            <Icon
+              name={link.icon}
+              class="text-xl relative z-10 flex items-center gap-3
+                  transition-colors duration-300
+                  text-black group-hover:text-white"
+            />
+          </a>
+        ))
+      }
+    </div> -->

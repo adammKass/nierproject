@@ -1,0 +1,14 @@
+---
+import { ILLUSTRATION_LINKS } from "../../constants";
+import Layout from "../../layouts/Layout.astro";
+import IllustrationProjects from "../../components/IllustrationProjects";
+---
+
+<Layout title="Home">
+  <main class="main">
+    <div class="content">
+      <h1 class="headingMain">Illustration</h1>
+      <IllustrationProjects projects={ILLUSTRATION_LINKS} client:load />
+    </div>
+  </main>
+</Layout>

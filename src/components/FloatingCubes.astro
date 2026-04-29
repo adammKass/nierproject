@@ -1,0 +1,68 @@
+---
+
+---
+
+<div
+  id="cube-layer"
+  class="absolute inset-0 z-[0] overflow-hidden perspective-[1200px] pointer-events-none"
+>
+  <div class="cube">
+    <div class="face front"></div>
+    <div class="face back"></div>
+    <div class="face right"></div>
+    <div class="face left"></div>
+    <div class="face top"></div>
+    <div class="face bottom"></div>
+  </div>
+
+  <div class="cube">
+    <div class="face front"></div>
+    <div class="face back"></div>
+    <div class="face right"></div>
+    <div class="face left"></div>
+    <div class="face top"></div>
+    <div class="face bottom"></div>
+  </div>
+
+  <div class="cube">
+    <div class="face front"></div>
+    <div class="face back"></div>
+    <div class="face right"></div>
+    <div class="face left"></div>
+    <div class="face top"></div>
+    <div class="face bottom"></div>
+  </div>
+</div>
+
+<script>
+  const cubes = document.querySelectorAll<HTMLElement>(".cube");
+
+  let mouseX = 0;
+  let mouseY = 0;
+
+  window.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX / window.innerWidth - 0.5;
+    mouseY = e.clientY / window.innerHeight - 0.5;
+  });
+
+  function animate() {
+    cubes.forEach((cube, i) => {
+      const depth = (i + 1) * 30;
+
+      const rotateX = mouseY * 40;
+      const rotateY = mouseX * 40;
+
+      const translateX = mouseX * depth;
+      const translateY = mouseY * depth;
+
+      cube.style.transform = `
+        translate3d(${translateX}px, ${translateY}px, 0)
+       
+      `;
+    });
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+</script>

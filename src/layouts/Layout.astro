@@ -1,0 +1,25 @@
+---
+import Footer from "../components/Footer.astro";
+
+import Navbar from "../components/Navbar.jsx";
+import { ClientRouter } from "astro:transitions";
+const { title } = Astro.props;
+const pathname = Astro.url.pathname;
+import "../styles/global.css";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <ClientRouter />
+  </head>
+  <body class="bg-lightGray">
+    <Navbar pathname={pathname} client:load />
+    <div class="min-h-dvh flex flex-col">
+      <slot />
+      <!-- your content is injected here -->
+      <Footer />
+    </div>
+  </body>
+</html>

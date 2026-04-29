@@ -1,0 +1,43 @@
+---
+import { NAV_LINKS } from "../constants";
+import { Icon } from "astro-icon/components";
+import "../styles/global.css";
+
+const pathname = Astro.url.pathname;
+---
+
+<div class="w-full border-b border-black fixed z-50 bg-lightGray">
+  <nav class="content flex items-center justify-between h-16 gap-3">
+    {
+      NAV_LINKS.map((link) => (
+        <a
+          href={link.href}
+          class={`group relative flex items-center justify-start w-48 gap-2 px-2 py-1 text-base font-light uppercase transition-all duration-300 cursor-pointer
+          
+          before:absolute before:inset-0 before:bg-black
+          before:origin-left before:scale-x-0
+          before:transition-transform before:duration-300
+          
+          hover:before:scale-x-100 hover:text-white
+          
+          ${
+            pathname === link.href
+              ? "text-white before:scale-x-100 h-full"
+              : "text-black bg-lighterGray"
+          }
+  `}
+        >
+          <Icon
+            name="material-symbols:arrow-right"
+            class={`absolute rotate-90 bottom-1/2 translate-y-full left-0 right-0 mx-auto
+      text-7xl text-black ${pathname === link.href ? "opacity-100" : "opacity-0"}`}
+          />
+          <span class="relative z-10 flex items-center gap-2">
+            <Icon name={link.icon} class="text-lg" />
+            {link.name}
+          </span>
+        </a>
+      ))
+    }
+  </nav>
+</div>

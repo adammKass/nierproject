@@ -1,0 +1,240 @@
+---
+import { EXPERIENCE_LINKS, ILLUSTRATION_LINKS } from "../../constants";
+import Layout from "../../layouts/Layout.astro";
+import IllustrationProjects from "../../components/IllustrationProjects";
+import { Image } from "astro:assets";
+import Portrait from "../../assets/portrait.svg";
+import { Icon } from "astro-icon/components";
+import AnimatedColumn from "../../components/AnimatedColumn.jsx";
+import AnimatedColumnContact from "../../components/AnimatedColumnContact";
+---
+
+<Layout title="Home">
+  <main class="main">
+    <div class="content w-full">
+      <h1 class="headingMain">Contact</h1>
+      <div class="grid grid-cols-3 gap-7 gridContainerMargin mb-7">
+        {/* LEFT COLUMN */}
+        <AnimatedColumnContact client:visible>
+          <h2 class="subheadingBlack">Get in Touch</h2>
+
+          <form
+            id="contactForm"
+            action="/api/contact"
+            method="POST"
+            class="flex flex-col gap-4 p-4 bg-white"
+            novalidate
+          >
+            <!-- honeypot spam trap -->
+            <input
+              type="text"
+              name="company"
+              class="hidden"
+              tabindex="-1"
+              autocomplete="off"
+            />
+
+            <!-- Name -->
+            <div class="flex flex-col gap-1">
+              <div class="flex justify-between">
+                <label class="uppercase text-sm font-bold">Name</label>
+                <span class="text-red-600 text-sm hidden" id="nameError"></span>
+              </div>
+
+              <input
+                name="name"
+                id="name"
+                type="text"
+                class="border border-gray-300 px-3 py-2 focus:ring-1 focus:ring-black focus:border-black transition-all duration-300 ease-in-out"
+                required
+              />
+            </div>
+
+            <!-- Email -->
+            <div class="flex flex-col gap-1">
+              <div class="flex justify-between">
+                <label class="uppercase text-sm font-bold">Email</label>
+                <span class="text-red-600 text-sm hidden" id="emailError"
+                ></span>
+              </div>
+
+              <input
+                name="email"
+                id="email"
+                type="email"
+                class="border border-gray-300 px-3 py-2 focus:ring-1 focus:ring-black focus:border-black transition-all duration-300 ease-in-out"
+                required
+              />
+            </div>
+
+            <!-- Subject -->
+            <div class="flex flex-col gap-1">
+              <label class="uppercase text-sm font-bold">Subject</label>
+              <input
+                name="subject"
+                type="text"
+                class="border border-gray-300 px-3 py-2 focus:ring-1 focus:ring-black focus:border-black transition-all duration-300 ease-in-out"
+                required
+              />
+            </div>
+
+            <!-- Message -->
+            <div class="flex flex-col gap-1">
+              <label class="uppercase text-sm font-bold">Message</label>
+              <textarea
+                name="message"
+                rows="5"
+                class="border border-gray-300 px-3 py-2 resize-none focus:ring-1 focus:ring-black focus:border-black transition-all duration-300 ease-in-out"
+                required></textarea>
+            </div>
+
+            <!-- GDPR -->
+            <label class="flex items-start gap-2 text-sm text-gray-600">
+              <span
+                class="relative w-5 h-5 border border-black overflow-hidden cursor-pointer shrink-0"
+              >
+                <input
+                  type="checkbox"
+                  required
+                  class="peer absolute inset-0 opacity-0"
+                />
+
+                <!-- fill animation -->
+                <span
+                  class="absolute inset-0 bg-black origin-left scale-x-0
+      transition-transform duration-300
+      peer-checked:scale-x-100"
+                ></span>
+
+                <!-- check icon -->
+                <span
+                  class="absolute inset-0 flex items-center justify-center
+      text-white text-xs opacity-0
+      transition-opacity duration-200
+      peer-checked:opacity-100"
+                >
+                  ✓
+                </span>
+              </span>
+              <span class="">
+                I consent to having this website store my submitted information
+                so they can respond to my inquiry. See our <a
+                  href="/privacy"
+                  class="underline hover:opacity-70 transition-opacity duration-300 ease-in-out font-bold text-black"
+                >
+                  Privacy Policy</a
+                > for more</span
+              >
+            </label>
+
+            <!-- Submit -->
+            <button
+              type="submit"
+              class="group relative overflow-hidden text-center w-fit
+                px-6 py-3 uppercase text-lg bg-black
+                before:absolute before:inset-0 before:bg-white
+                before:origin-left before:scale-x-0
+                before:transition-transform before:duration-300
+                hover:before:scale-x-100 cursor-pointer flex items-center"
+            >
+              <span
+                class="relative z-10 gap-3
+                  transition-colors duration-300
+                  text-white group-hover:text-black"
+              >
+                Send Message
+              </span>
+            </button>
+
+            <!-- success message -->
+            <p id="successMessage" class="hidden text-green-600 font-bold">
+              Message sent successfully!
+            </p>
+          </form>
+        </AnimatedColumnContact>
+
+        <!-- CONTACT DETAILS COLUMN -->
+
+        <div
+          class="flex flex-col bg-white relative h-fit col-span-full lg:col-span-1 mb-6 lg:mb-0 pb-2 md:sticky md:top-20 self-start"
+        >
+          <h2 class="subheadingBlack">Contact Info</h2>
+          <!-- <a
+            href="tel:+421948123456"
+            class="group relative overflow-hidden flex flex-row items-center uppercase font-light before:absolute before:inset-0 before:bg-black
+                before:origin-left before:scale-x-0
+                before:transition-transform before:duration-300
+                hover:before:scale-x-100 cursor-pointer p-4 m-4 gap-2 border border-black"
+          >
+            <Icon
+              name="material-symbols:perm-phone-msg"
+              class="z-10 text-2xl transition-colors duration-300
+                  text-black group-hover:text-white"
+            />
+            <span
+              class="z-10 flex items-center
+                  transition-colors duration-300
+                  text-black group-hover:text-white"
+              >+421 948 123 456</span
+            >
+          </a> -->
+
+          <a
+            href="mailto:example@email.com"
+            class="group relative overflow-hidden flex flex-row items-center font-light before:absolute before:inset-0 before:bg-black
+                before:origin-left before:scale-x-0
+                before:transition-transform before:duration-300
+                hover:before:scale-x-100 cursor-pointer p-4 m-4 gap-2 border border-black"
+          >
+            <Icon
+              name="material-symbols:mail-sharp"
+              class="z-10 text-2xl transition-colors duration-300
+                  text-black group-hover:text-white"
+            />
+            <span
+              class="z-10 flex items-center
+                  transition-colors duration-300
+                  text-black group-hover:text-white"
+              >example@email.com</span
+            >
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector<HTMLFormElement>("#contactForm");
+    const success =
+      document.querySelector<HTMLParagraphElement>("#successMessage");
+
+    if (!form) return;
+
+    form.addEventListener("submit", async (event: SubmitEvent) => {
+      event.preventDefault();
+
+      const data = new FormData(form);
+
+      try {
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          body: data,
+        });
+
+        if (!response.ok) {
+          throw new Error("Request failed");
+        }
+
+        form.reset();
+
+        if (success) {
+          success.classList.remove("hidden");
+        }
+      } catch (error) {
+        console.error("Form submission error:", error);
+      }
+    });
+  });
+</script>

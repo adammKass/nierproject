@@ -1,0 +1,28 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="404 - Not Found">
+  <main class="main flex flex-col items-center justify-center">
+    <div class="content w-full flex flex-col items-center gap-8">
+      <h1 class="headingMain text-center">404 - Not Found</h1>
+      <a
+        href="/"
+        class="group relative overflow-hidden text-center w-fit
+                px-6 py-3 uppercase text-lg bg-black
+                before:absolute before:inset-0 before:bg-white
+                before:origin-left before:scale-x-0
+                before:transition-transform before:duration-300
+                hover:before:scale-x-100 cursor-pointer flex items-center"
+      >
+        <span
+          class="relative z-10 gap-3
+                  transition-colors duration-300
+                  text-white group-hover:text-black"
+        >
+          Go Home
+        </span>
+      </a>
+    </div>
+  </main>
+</Layout>
