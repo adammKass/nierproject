@@ -3,8 +3,8 @@ import { EXPERIENCE_LINKS, ILLUSTRATION_LINKS } from "../../constants";
 import Layout from "../../layouts/Layout.astro";
 import IllustrationProjects from "../../components/IllustrationProjects";
 import { Image } from "astro:assets";
-import Portrait from "../../assets/portrait.svg";
-import Portrait2 from "../../assets/portrait2.png";
+import Portrait from "../../assets/portrait2.png";
+import Portrait2 from "../../assets/portrait.webp";
 import AnimatedColumn from "../../components/AnimatedColumn.jsx";
 ---
 
@@ -52,12 +52,12 @@ import AnimatedColumn from "../../components/AnimatedColumn.jsx";
         </AnimatedColumn>
       </div>
       <div
-        class="block col-span-full sm:absolute h-full aspect-square sm:max-w-[50vw] bottom-0 right-0 z-10"
+        class="block col-span-full sm:absolute h-full aspect-square sm:max-w-[50vw] bottom-0 right-0 z-10 origin-top"
       >
         <Image
-          src={Portrait2}
+          src={Portrait}
           alt="About Image"
-          class="object-cover w-full h-full"
+          class="object-cover w-full h-full origin-top"
         />
       </div>
     </div>

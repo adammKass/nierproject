@@ -1,18 +1,8 @@
 import HornThumb from "./assets/GraphicDesign/Horn/Horn_ThumbNail.jpg";
 
 import BielaLiniaThumb from "./assets/GraphicDesign/BielaLinia/BielaLinia_Thumb.jpg";
-import BielaLiniaDesktop from "./assets/GraphicDesign/BielaLinia/BielaLinia_Desktop Full.webp";
-import BielaLiniaMobile from "./assets/GraphicDesign/BielaLinia/BielaLinia_Mobile.jpg";
 
-import TorseThumb from "./assets/GraphicDesign/Torse/Torse_thumb.jpg";
-import TorseThumbnail from "./assets/GraphicDesign/Torse/Torse_Thumbnail.jpg";
-import TorseDesktop from "./assets/GraphicDesign/Torse/Torse_Desktop.png";
-import TorseMobile from "./assets/GraphicDesign/Torse/Torse_mobile.jpg";
-import TorseLoading from "./assets/GraphicDesign/Torse/Torse_Loading.png";
-
-import ScrollLockThumb from "./assets/GraphicDesign/ScrollLock/ScrollLock_Thumb.jpg";
-import CofDesktop from "./assets/GraphicDesign/ScrollLock/Cof_Desktop.webp";
-import VirDesktop from "./assets/GraphicDesign/ScrollLock/Vir_Desktop.webp";
+import TorseThumbnail from "./assets/GraphicDesign/Torse/Torse_thumb.jpg";
 
 import SDThumb from "./assets/3dGraphics/SDThumb.jpg";
 import FBUThumb from "./assets/3dGraphics/FBUThumb.jpg";
@@ -174,18 +164,6 @@ export const FAQ_LINKS = [
 
 export const D_LINKS = [
   {
-    id: "SD",
-    thumb: SDThumb,
-    href: "https://www.artstation.com/artwork/oJd3Dq",
-    title: "Substance Designer Practice",
-    alt: "Render of rock material created using Substance Designer",
-    textShort:
-      "Here are some of the materials I created using Substance Designer. The aim of this practice was to improve my skills in Substance Designer.",
-    type: "Texturing",
-    tools: "Substance Designer, Photoshop",
-    year: "2025",
-  },
-  {
     id: "FBU",
     thumb: FBUThumb,
     href: "https://www.artstation.com/artwork/K34aQR",
@@ -219,6 +197,18 @@ export const D_LINKS = [
     type: "Environment Art",
     tools: "Blender, Substance Painter, Photoshop, Unreal Engine",
     year: "2024",
+  },
+  {
+    id: "SD",
+    thumb: SDThumb,
+    href: "https://www.artstation.com/artwork/oJd3Dq",
+    title: "Substance Designer Practice",
+    alt: "Render of rock material created using Substance Designer",
+    textShort:
+      "Here are some of the materials I created using Substance Designer. The aim of this practice was to improve my skills in Substance Designer.",
+    type: "Texturing",
+    tools: "Substance Designer, Photoshop",
+    year: "2025",
   },
 ];
 
@@ -292,66 +282,26 @@ export const WEB_LINKS = [
     id: "BielaLinia",
     thumb: BielaLiniaThumb,
     title: "Biela Linia",
-    alt: "Thumbnail showcasing a fictional website of household cleaning company in Nitra",
+    href: "/web-design/bielaLinia/",
+    alt: "Thumbnail showcasing a website of household cleaning company in Slovakia",
     textShort:
-      "A fully responsive and accessible website concept for a fictional household cleaning company.",
+      "A fully responsive parallax landing page for a fictional household cleaning company based in Slovakia.",
     type: "Web Design",
     tools: "React, Tailwind, Motion",
     year: "2025",
     text: "Biela Linia is a fictional household cleaning company based in Nitra. This project was created as a trial for a web development company. I was handed design in Figma and the goal was to create a landing page with full screen snapping sections. I kept the layout as was in design file but I had to tweak it slightly to proper functionality and tweak design for more modern and sophisticated look. The landing page includes the following sections: Home Banner | Services |  Testimonials | FAQ | Gallery | Footer.\nThe project was developed with React, Tailwind, and Motion, with a strong focus on responsiveness and optimized performance.",
-    images: [
-      {
-        image: BielaLiniaDesktop,
-      },
-      {
-        image: BielaLiniaMobile,
-      },
-    ],
   },
   {
     id: "Torse",
     title: "Torse",
+    href: "/web-design/torse/",
     alt: "Preview thumbnail of a modern black-and-white interior design studio website",
     textShort:
-      "A modern animated landing page for a fictional interior design studio, focused on minimalism and motion.",
+      "A high-contrast animated hero banner concept for a fictional interior design studio, focused on minimalism and motion.",
     type: "Web Design",
     tools: "Photoshop, BlenderReact, Tailwind, GSAP",
     year: "2025",
-    text: "Torse — a high-contrast landing page concept for a fictional interior design studio. The visual direction embraces bold minimalism, using a strict black-and-white palette and League Spartan typography to create a contemporary and confident aesthetic. The design was created in Figma and developed using React, Tailwind CSS, and GSAP to produce fluid, polished animations.\nThe hero visual was rendered in Blender using Freestyle for a stylized architectural line-art appearance. A behind-the-scenes rendering process by Transient at Large is available on YouTube.\nThe live page is published via GitHub Pages.",
+    text: "Torse — a high-contrast animated hero banner concept for a fictional interior design studio. The visual direction embraces bold minimalism, using a strict black-and-white palette and League Spartan typography to create a contemporary and confident aesthetic. The design was created in Figma and developed using React, Tailwind CSS, and GSAP to produce fluid, polished animations.\nThe hero visual was rendered in Blender using Freestyle for a stylized architectural line-art appearance. A behind-the-scenes rendering process by Transient at Large is available on YouTube.\nThe live page is published via GitHub Pages.",
     thumb: TorseThumbnail,
-    images: [
-      {
-        image: TorseThumb,
-      },
-      {
-        image: TorseDesktop,
-      },
-      {
-        image: TorseLoading,
-      },
-      {
-        image: TorseMobile,
-      },
-    ],
-  },
-  {
-    id: "ScrollLock",
-    title: "ScrollLock",
-    alt: "Thumbnail preview of modern coffee shop and streetwear landing pages with parallax animation",
-    textShort:
-      "Two responsive landing pages featuring smooth parallax motion and scroll-lock interactions.",
-    type: "Web Design",
-    tools: "React, Tailwind, GSAP, Motion, Lenis",
-    year: "2025",
-    text: "Two animated landing pages created using GSAP and Motion, each producing a unique take on the scroll-lock parallax experience. One layout uses a horizontal slider format, while the other features vertical scroll-snapping for a guided, fluid browsing interaction.",
-    thumb: ScrollLockThumb,
-    images: [
-      {
-        image: CofDesktop,
-      },
-      {
-        image: VirDesktop,
-      },
-    ],
   },
 ];

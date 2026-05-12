@@ -3,6 +3,7 @@ import { Icon } from "astro-icon/components";
 ---
 
 <button
+  aria-label="Toggle dark mode"
   class="group relative overflow-hidden border border-black transition-color duration-300 easeInOut text-black p-2 before:absolute before:inset-0 before:bg-black bg-white
                 before:origin-left before:scale-x-0
                 before:transition-transform before:duration-300
@@ -15,12 +16,14 @@ import { Icon } from "astro-icon/components";
   id="theme-selector"
 >
   <Icon
+    aria-hidden="true"
     name="material-symbols:dark-mode"
     class="text-lg relative z-10 items-center gap-3
                   transition-colors duration-300
                   text-black group-hover:text-white hidden dark:flex"
   />
   <Icon
+    aria-hidden="true"
     name="material-symbols:light-mode"
     class="text-lg relative z-10 flex items-center gap-3
                   transition-colors duration-300

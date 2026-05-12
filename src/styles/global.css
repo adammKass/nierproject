@@ -3,7 +3,7 @@
 
 html.loaded .fade-in {
   opacity: 1;
-  transform: translateY(0);
+  translate: 0 0;
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -33,7 +33,7 @@ html:not(.dark) {
   --color-darkerGray: #737373;
   --color-darkestGray: #b3b3b3;
   --color-white: #000000;
-  --color-black: #c9c9c9;
+  --color-black: #ffffff;
 }
 
 html {

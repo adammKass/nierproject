@@ -19,12 +19,16 @@ import DarkThemeSwitcher from "../components/DarkThemeSwitcher.astro";
     class="opacity-0 transition-opacity duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] fade-in
           relative grow flex flex-col items-center justify-between relative overflow-hidden bg-lightGray gap-3"
   >
-    <canvas class="absolute inset-0" id="triangles"></canvas>
-    <div class="mt-[15dvh] md:mt-[10dvh] flex flex-col gap-[5dvh]">
+    <canvas
+      aria-hidden="true"
+      class="absolute inset-0 w-full h-full"
+      id="triangles"></canvas>
+    <div class="mt-[12dvh] md:mt-[10dvh] flex flex-col gap-[5dvh]">
       <h1
-        class="opacity-0 translate-y-6
-         transition-all duration-1200 ease-out
-          fade-in text-6xl sm:text-7xl md:text-8xl 2xl:text-[9rem] z-15 text-center"
+        class="opacity-0 translate-y-[35vh]
+    transition-all duration-1000
+    ease-[cubic-bezier(0.22,1,0.36,1)]
+    fade-in text-6xl sm:text-7xl md:text-8xl 2xl:text-[9rem] z-15 text-center text-black"
       >
         <span
           class="font-decorative text-[6rem] sm:text-[8rem] md:text-[12rem] 2xl:text-[17rem] mr-[-0.3em]"
@@ -39,57 +43,70 @@ import DarkThemeSwitcher from "../components/DarkThemeSwitcher.astro";
           </span>aščák
         </span>
       </h1>
-      <div
-        class="flex flex-col gap-3 md:gap-3 2xl:gap-6 items-center z-10 justify-self-start"
-      >
-        {
-          NAV_LINKS.map((link, index) => (
-            <a
-              href={link.href}
-              style={`transition-delay: ${index * 80}ms`}
-              class={`opacity-0 translate-y-4
+      <nav aria-label="Main navigation">
+        <ul
+          class="flex flex-col gap-3 md:gap-3 2xl:gap-6 items-center z-10 justify-self-start"
+        >
+          {
+            NAV_LINKS.map((link, index) => (
+              <li>
+                <a
+                  href={link.href}
+                  style={`transition-delay: ${300 + index * 80}ms`}
+                  class={`opacity-0 translate-y-4
         fade-in
         transition-all duration-500 ease-out relative text-xl 2xl:text-2xl uppercase
         after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 2xl:after:-bottom-2 font-light
         after:h-[2px] after:w-0 after:bg-black
         after:transition-all after:duration-300
         hover:after:w-full ${index === 0 ? "hidden" : "block"}`}
-            >
-              {link.name}
-            </a>
-          ))
-        }
-      </div>
+                >
+                  {link.name}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
     </div>
 
-    <nav
-      class="w-full flex flex-col items-center gap-3 bg-white/20 backdrop-blur-xl z-20 py-4"
+    <footer
+      class="w-full flex flex-col sm:flex-row items-center justify-center gap-3 bg-white/20 backdrop-blur-xl z-20 py-4"
     >
-      <div class="flex items-center gap-3">
-        {
-          SOCIAL_LINKS.map((link) => (
-            <a
-              href={link.href}
-              class="group relative overflow-hidden border border-black  transition-color duration-300 easeInOut text-black  p-2 before:absolute before:inset-0 before:bg-black bg-white
+      <nav class="flex items-center gap-3" aria-label="Social media">
+        <ul class="flex items-center gap-3">
+          {
+            SOCIAL_LINKS.map((link) => {
+              return (
+                <li class="w-full h-full">
+                  <a
+                    aria-label={link.name}
+                    href={link.href}
+                    target="_blank"
+                    class="group relative flex overflow-hidden border border-black  transition-color duration-300 easeInOut text-black  p-2 before:absolute before:inset-0 before:bg-black bg-white
                 before:origin-left before:scale-x-0
                 before:transition-transform before:duration-300
                 hover:before:scale-x-100 cursor-pointer"
-            >
-              <Icon
-                name={link.icon}
-                class="text-lg relative z-10 flex items-center gap-3
+                  >
+                    <Icon
+                      aria-hidden="true"
+                      name={link.icon}
+                      class="text-lg relative z-10 flex items-center gap-3
                   transition-colors duration-300
                   text-black group-hover:text-white"
-              />
-            </a>
-          ))
-        }
+                    />
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
         <DarkThemeSwitcher />
-        <p class="text-black text-center">
-          © 2026 Adam Kascak. All rights reserved.
-        </p>
-      </div>
-    </nav>
+      </nav>
+      <p class="text-black text-center">
+        © 2026 Adam Kascak. All rights reserved.
+      </p>
+    </footer>
   </main>
 
   <script>
@@ -116,8 +133,14 @@ import DarkThemeSwitcher from "../components/DarkThemeSwitcher.astro";
       // Resize
       // --------------------
       function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        const parent = canvas.parentElement;
+
+        if (!parent) return;
+
+        const rect = parent.getBoundingClientRect();
+
+        canvas.width = rect.width;
+        canvas.height = rect.height;
         generatePattern();
       }
 
@@ -237,8 +260,8 @@ import DarkThemeSwitcher from "../components/DarkThemeSwitcher.astro";
       function cleanup() {
         if (animationId) cancelAnimationFrame(animationId);
 
-        window.removeEventListener("resize", resize);
-        window.removeEventListener("orientationchange", resize);
+        window.addEventListener("resize", resize);
+        window.addEventListener("orientationchange", resize);
 
         if (!isMobile) {
           window.removeEventListener("mousemove", onMouseMove);

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { FAQ_LINKS } from "../constants";
 import { motion, AnimatePresence } from "framer-motion";
 import { Icon } from "@iconify/react";
@@ -8,6 +8,40 @@ export default function ServicesProjects({ projects }) {
   const [openIndex, setOpenIndex] = useState(0);
 
   const project = projects[active];
+  const tabRefs = useRef([]);
+
+  const handleKeyDown = (e, index) => {
+    let nextIndex = index;
+
+    switch (e.key) {
+      case "ArrowDown":
+      case "ArrowRight":
+        nextIndex = (index + 1) % projects.length;
+        break;
+
+      case "ArrowUp":
+      case "ArrowLeft":
+        nextIndex = (index - 1 + projects.length) % projects.length;
+        break;
+
+      case "Home":
+        nextIndex = 0;
+        break;
+
+      case "End":
+        nextIndex = projects.length - 1;
+        break;
+
+      default:
+        return;
+    }
+
+    e.preventDefault();
+
+    setActive(nextIndex);
+
+    tabRefs.current[nextIndex]?.focus();
+  };
 
   const [question, setQuestion] = useState(null);
 
@@ -156,7 +190,11 @@ export default function ServicesProjects({ projects }) {
 
       <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-7 gridContainerMargin">
         {/* LEFT COLUMN */}
-        <div className="relative col-span-full md:col-span-1 md:sticky md:top-20 self-start">
+        <div
+          role="tablist"
+          aria-label="Services"
+          className="relative col-span-full md:col-span-1 md:sticky md:top-20 self-start"
+        >
           <motion.div
             initial={{ scaleY: 0 }}
             animate={{ scaleY: 1 }}
@@ -172,8 +210,15 @@ export default function ServicesProjects({ projects }) {
           >
             {projects.map((p, i) => (
               <motion.button
+                ref={(el) => (tabRefs.current[i] = el)}
+                onKeyDown={(e) => handleKeyDown(e, i)}
                 key={i}
                 variants={item}
+                role="tab"
+                aria-selected={active === i}
+                aria-controls={`project-panel-${i}`}
+                id={`project-tab-${i}`}
+                tabIndex={active === i ? 0 : -1}
                 onMouseEnter={() => setActive(i)}
                 onClick={() => setActive(i)}
                 className={`group relative bg-white
@@ -189,6 +234,7 @@ export default function ServicesProjects({ projects }) {
                 }`}
               >
                 <Icon
+                  aria-hidden="true"
                   icon="material-symbols:arrow-right"
                   className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-full
       text-4xl text-black ${active === i ? "opacity-100" : "opacity-0"}`}
@@ -200,97 +246,116 @@ export default function ServicesProjects({ projects }) {
         </div>
 
         {/* MIDDLE COLUMN */}
-        <motion.div
-          variants={content}
-          initial="hidden"
-          animate="visible"
-          transition={{ delay: 0.4, duration: 0.3 }}
-          className="bg-white relative flex flex-col h-fit col-span-full md:col-span-2 lg:col-span-1"
+        <div
+          role="tabpanel"
+          id={`project-panel-${active}`}
+          aria-labelledby={`project-tab-${active}`}
+          className="col-span-full sm:col-span-2 grid grid-cols-1 lg:grid-cols-2 gap-7"
         >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.25 }}
-            >
-              <h2 className="subheadingBlack">{project.title}</h2>
-              <div className="w-full aspect-video flex items-center justify-center">
-                <Icon icon={project.icon} className={`text-[162px]`} />
-              </div>
+          <motion.div
+            variants={content}
+            initial="hidden"
+            animate="visible"
+            transition={{ delay: 0.4, duration: 0.3 }}
+            className="bg-white relative flex flex-col h-fit col-span-full md:col-span-2 lg:col-span-1"
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={project.title}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.25 }}
+              >
+                <h2 className="subheadingBlack">{project.title}</h2>
+                <div className="w-full aspect-video flex items-center justify-center">
+                  <Icon icon={project.icon} className={`text-[162px]`} />
+                </div>
 
-              <p className="p-4 text-darkestGray">{project.about}</p>
-              <p className="px-4 py-2 lg:py-4 text-black uppercase font-bold">
-                {project.areas}
-              </p>
-            </motion.div>
-          </AnimatePresence>
-        </motion.div>
-        <div className="hidden md:block lg:hidden"></div>
+                <p className="p-4 text-darkestGray">{project.about}</p>
+                <p className="px-4 py-2 lg:py-4 text-black uppercase font-bold">
+                  {project.areas}
+                </p>
+              </motion.div>
+            </AnimatePresence>
+          </motion.div>
+          <div className="hidden md:block lg:hidden"></div>
 
-        {/* RIGHT COLUMN */}
-        <motion.div
-          variants={content}
-          initial="hidden"
-          animate="visible"
-          transition={{ delay: 0.5, duration: 0.3 }}
-          className="bg-white relative flex flex-col min-h-[40dvh] col-span-full md:col-span-2 lg:col-span-1 mb-7"
-        >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={"-details"}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.25 }}
-              className=" bg-white flex relative flex-col min-h-[40dvh]"
-            >
-              <h2 className="subheadingBlack">FAQ</h2>
+          {/* RIGHT COLUMN */}
+          <motion.div
+            variants={content}
+            initial="hidden"
+            animate="visible"
+            transition={{ delay: 0.5, duration: 0.3 }}
+            className="bg-white relative flex flex-col min-h-[40dvh] col-span-full md:col-span-2 lg:col-span-1 mb-7"
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={"-details"}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.25 }}
+                className=" bg-white flex relative flex-col min-h-[40dvh]"
+              >
+                <h2 className="subheadingBlack">FAQ</h2>
 
-              <div className="flex flex-col p-4">
-                {FAQ_LINKS.map((link, i) => {
-                  const isQuestion = question === i;
+                <div className="flex flex-col p-4">
+                  {FAQ_LINKS.map((link, i) => {
+                    const isQuestion = question === i;
 
-                  return (
-                    <div key={i} className="border-b border-gray-300">
-                      {/* QUESTION */}
-                      <button
-                        onClick={() => toggle(i)}
-                        className={`cursor-pointer w-full flex items-center justify-between px-3 py-2 transition-colors duration-300 
+                    return (
+                      <div key={i} className="border-b border-gray-300">
+                        {/* QUESTION */}
+                        <button
+                          aria-expanded={isQuestion}
+                          aria-controls={`faq-accordion-answer-${i}`}
+                          id={`faq-accordion-question-${i}`}
+                          onClick={() => toggle(i)}
+                          className={`cursor-pointer w-full flex items-center justify-between px-3 py-2 transition-colors duration-300 
                 ${
                   isQuestion
                     ? "bg-black text-white"
                     : "bg-white text-black hover:bg-gray-100"
                 }`}
-                      >
-                        <span className="font-bold text-base text-left lg:text-lg ">
-                          {link.question}
-                        </span>
+                        >
+                          <span className="font-bold text-base text-left lg:text-lg ">
+                            {link.question}
+                          </span>
 
-                        <Icon
-                          icon="material-symbols:arrow-drop-down"
-                          className={`text-2xl transition-transform duration-300
+                          <Icon
+                            aria-hidden="true"
+                            icon="material-symbols:arrow-drop-down"
+                            className={`text-2xl transition-transform duration-300
                   ${isQuestion ? "rotate-180" : "rotate-0"}`}
-                        />
-                      </button>
+                          />
+                        </button>
 
-                      {/* ANSWER */}
-                      <div
-                        className={`grid transition-all duration-300 text-sm lg:text-base
+                        {/* ANSWER */}
+                        <div
+                          id={`faq-accordion-answer-${i}`}
+                          role="region"
+                          aria-labelledby={`faq-accordion-question-${i}`}
+                          className={`grid transition-all duration-300 text-sm lg:text-base
                 ${isQuestion ? "grid-rows-[1fr] py-2" : "grid-rows-[0fr]"}`}
-                      >
-                        <div className="overflow-hidden px-3">
-                          <p className="text-darkestGray">{link.answer}</p>
+                        >
+                          <div className="overflow-hidden px-3">
+                            <p
+                              hidden={!isQuestion}
+                              className="text-darkestGray"
+                            >
+                              {link.answer}
+                            </p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </motion.div>
-          </AnimatePresence>
-        </motion.div>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </motion.div>
+        </div>
       </div>
     </div>
   );

@@ -7,16 +7,15 @@ image: "/images/Horn_ThumbNail.jpg"
 excerpt: "A practical walkthrough of building a blog with Astro and Tailwind."
 ---
 
-Building a blog with Astro is surprisingly simple. In this post, I’ll walk you through the process.
-Lorem Fugiat tempor et labore sunt magna laborum magna. Deserunt fugiat fugiat anim velit et id magna enim. Dolor ut eiusmod id do et.
+This was one of the first projects I created. The goal was to create a one page website for a box gym in Nitra, Slovakia.
 
-> Hlavným zámerom bolo ukázať silu a rýchlost boxéra.
+> The main intention was to show the strength and discipline of a boxer.
 
 ---
 
 ## Visual identity
 
-The visual identity balances boldness with approachability — strong but not intimidating.
+The visual identity balances boldness with approachability — strong but not intimidating. Sections switch between white and black background, creating bold contrast while also leaving text readable. Red is used as an accent color.
 
 <figure>
   <img src="/images/Horn_Colors.jpg" alt="Colors used inside Horn website: red, gray and black" />
@@ -30,11 +29,6 @@ The visual identity balances boldness with approachability — strong but not in
 The logo, depicting a stylized bull’s skull, is rounded and simplified to maintain a dynamic but friendly appearance.
 
 <figure>
-  <img src="/images/Horn_Logo.jpg" alt="Different versions of Horn website logo - bull's skull" />
-  <figcaption>Bull's skull depicting ferocity and strength</figcaption>
-</figure>
-
-<figure>
   <img src="/images/Horn_LogoShowcase.webp" alt="Different versions of Horn website logo - bull's skull" />
   <figcaption>Visual showcase of the Logo</figcaption>
 </figure>
@@ -43,7 +37,7 @@ The logo, depicting a stylized bull’s skull, is rounded and simplified to main
 
 ## Wireframing
 
-Do culpa eiusmod mollit non excepteur velit deserunt non aute consequat. Minim laboris ullamco qui irure nostrud sit eiusmod sint ad amet ea proident. Magna nulla proident culpa dolore. Nisi quis aliquip laboris laboris. Nulla nostrud qui voluptate cillum nisi reprehenderit elit ex eiusmod labore est enim reprehenderit cillum. Anim pariatur consectetur labore anim consectetur esse qui do.
+Wireframing was done entirely in FIgma. The goal in this stage is to create layout.
 
 <figure>
   <img src="/images/Horn_Wireframe.png" alt="Wireframe" />
@@ -65,6 +59,11 @@ The landing page includes the following sections: Home Banner | Equipment | Trai
 <figure>
   <img src="/images/Horn_Desktop Full.webp" alt="Full page" />
   <figcaption>Full Page</figcaption>
+</figure>
+
+<figure>
+  <img src="/images/Horn_Responsive.jpg" alt="Responsive design" />
+  <figcaption>Responsive design</figcaption>
 </figure>
 
 ---
