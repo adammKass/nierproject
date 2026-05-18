@@ -16,6 +16,7 @@ import DarkThemeSwitcher from "../components/DarkThemeSwitcher.astro";
   description="Welcome to my portfolio! I'm a passionate web developer and 3D artist based in Bratislava, Slovakia."
 >
   <main
+    id="main-content"
     class="opacity-0 transition-opacity duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] fade-in
           relative grow flex flex-col items-center justify-between relative overflow-hidden bg-lightGray gap-3"
   >
@@ -43,7 +44,7 @@ import DarkThemeSwitcher from "../components/DarkThemeSwitcher.astro";
           </span>aščák
         </span>
       </h1>
-      <nav aria-label="Main navigation">
+      <nav aria-label="Main navigation" class="flex flex-col items-center">
         <ul
           class="flex flex-col gap-3 md:gap-3 2xl:gap-6 items-center z-10 justify-self-start"
         >

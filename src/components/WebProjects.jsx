@@ -150,6 +150,9 @@ export default function WebProjects({ projects }) {
                 <img
                   src={project.thumb.src}
                   alt={`${project.title} project preview`}
+                  width="800"
+                  height="800"
+                  loading="eager"
                   className="w-full aspect-square object-cover p-4 border-b-2 border-darkerGray"
                 />
 
@@ -285,7 +288,7 @@ focus-visible:outline-offset-2
                   id={`accordion-panel-${i}`}
                   role="region"
                   aria-labelledby={`accordion-header-${i}`}
-                  hidden={!isOpen}
+                  inert={!isOpen ? "" : undefined}
                   className={`transition-all duration-300 ease-in-out overflow-hidden ${
                     isOpen ? "max-h-[1000px]" : "max-h-0"
                   }`}

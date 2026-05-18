@@ -41,7 +41,7 @@ export default function Navbar({ pathname }) {
               aria-label="Primary navigation"
               className="hidden lg:flex w-full h-full"
             >
-              <ul className="lg:flex items-center gap-3 w-full h-full">
+              <ul className="lg:flex items-center justify-between gap-3 w-full h-full">
                 {NAV_LINKS.map((link) => {
                   const isActive =
                     link.href === "/"
@@ -50,11 +50,11 @@ export default function Navbar({ pathname }) {
                         pathname.startsWith(link.href + "/");
 
                   return (
-                    <li key={link.href} className="h-full">
+                    <li key={link.href} className="h-full flex-1">
                       <a
                         href={link.href}
                         aria-current={isActive ? "page" : undefined}
-                        className={`group relative flex items-center w-48 gap-2 px-2 py-1 uppercase transition-all duration-300
+                        className={`group relative w-full justify-start flex items-center gap-2 px-2 py-1 uppercase transition-all duration-300
                   
                   before:absolute before:inset-0 before:bg-black
                   before:origin-left before:scale-x-0

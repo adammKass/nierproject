@@ -8,6 +8,18 @@ const props = Astro.props;
 ---
 
 <BaseLayout {...props}>
+  <a
+    href="#main-content"
+    class="sr-only focus:not-sr-only
+         focus:fixed focus:sm:top-16 focus:left-0
+         focus:bg-white focus:text-black
+         focus:border focus:border-black
+         focus:px-4 focus:py-2
+         focus:z-[9999]
+         uppercase"
+  >
+    Skip to content
+  </a>
   <Navbar pathname={pathname} client:load />
 
   <div class="min-h-dvh flex flex-col">

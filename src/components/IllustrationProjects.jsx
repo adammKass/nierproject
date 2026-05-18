@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Modal from "./Modal";
 import { Icon } from "@iconify/react";
@@ -8,6 +8,39 @@ export default function IllustrationProjects({ projects }) {
   const [fullscreen, setFullscreen] = useState(false);
 
   const project = projects[active];
+  const tabRefs = useRef([]);
+  const handleKeyDown = (e, index) => {
+    let nextIndex = index;
+
+    switch (e.key) {
+      case "ArrowDown":
+      case "ArrowRight":
+        nextIndex = (index + 1) % projects.length;
+        break;
+
+      case "ArrowUp":
+      case "ArrowLeft":
+        nextIndex = (index - 1 + projects.length) % projects.length;
+        break;
+
+      case "Home":
+        nextIndex = 0;
+        break;
+
+      case "End":
+        nextIndex = projects.length - 1;
+        break;
+
+      default:
+        return;
+    }
+
+    e.preventDefault();
+
+    setActive(nextIndex);
+
+    tabRefs.current[nextIndex]?.focus();
+  };
 
   // 🔹 Animation variants
   const container = {
@@ -89,7 +122,11 @@ export default function IllustrationProjects({ projects }) {
 
       <div className="hidden sm:grid grid-cols-3 gap-7 gridContainerMargin mb-7">
         {/* LEFT COLUMN */}
-        <div className="relative col-span-full sm:col-span-1 sm:sticky sm:top-20 self-start">
+        <div
+          role="tablist"
+          aria-label="Illustrations projects"
+          className="relative col-span-full sm:col-span-1 sm:sticky sm:top-20 self-start"
+        >
           <motion.div
             initial={{ scaleY: 0 }}
             animate={{ scaleY: 1 }}
@@ -105,8 +142,15 @@ export default function IllustrationProjects({ projects }) {
           >
             {projects.map((p, i) => (
               <motion.button
+                ref={(el) => (tabRefs.current[i] = el)}
+                onKeyDown={(e) => handleKeyDown(e, i)}
                 key={i}
                 variants={item}
+                role="tab"
+                aria-selected={active === i}
+                aria-controls={`project-panel-${i}`}
+                id={`project-tab-${i}`}
+                tabIndex={active === i ? 0 : -1}
                 onMouseEnter={() => setActive(i)}
                 onClick={() => setActive(i)}
                 className={`group relative bg-white
@@ -122,6 +166,7 @@ export default function IllustrationProjects({ projects }) {
                 }`}
               >
                 <Icon
+                  aria-hidden="true"
                   icon="material-symbols:arrow-right"
                   className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-full
       text-4xl text-black ${active === i ? "opacity-100" : "opacity-0"}`}
@@ -134,6 +179,9 @@ export default function IllustrationProjects({ projects }) {
 
         {/* MIDDLE COLUMN */}
         <motion.div
+          role="tabpanel"
+          id={`project-panel-${active}`}
+          aria-labelledby={`project-tab-${active}`}
           variants={content}
           initial="hidden"
           animate="visible"
@@ -147,27 +195,35 @@ export default function IllustrationProjects({ projects }) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.25 }}
+              className="flex flex-col h-full"
             >
               <h2 className="subheadingBlack">{project.title}</h2>
-              <div
-                className="w-full h-[60dvh] flex items-center justify-center p-4 relative group cursor-pointer"
-                onClick={() => setFullscreen(true)}
-              >
-                <img
-                  src={project.image.src}
-                  className="max-w-full max-h-full object-contain"
-                />
 
-                {/* dark overlay */}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
-                  {/* fullscreen icon */}
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white text-3xl">
-                    ⤢
+              <div className="flex flex-col flex-1 justify-between">
+                <button
+                  aria-label={`View ${project.title} in fullscreen`}
+                  className="w-full h-[60dvh] flex items-center justify-center p-4 relative group cursor-pointer"
+                  onClick={() => setFullscreen(true)}
+                >
+                  <img
+                    src={project.image.src}
+                    alt={project.title}
+                    className="max-w-full max-h-full object-contain"
+                  />
+
+                  {/* dark overlay */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center"
+                  >
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white text-3xl">
+                      ⤢
+                    </div>
                   </div>
-                </div>
-              </div>
+                </button>
 
-              <p className="p-4 text-darkestGray">{project.textShort}</p>
+                <p className="p-4 text-darkestGray">{project.textShort}</p>
+              </div>
             </motion.div>
           </AnimatePresence>
         </motion.div>

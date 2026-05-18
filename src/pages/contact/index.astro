@@ -13,7 +13,7 @@ import AnimatedColumnContact from "../../components/AnimatedColumnContact";
   title="Contact"
   description="Get in touch with me to discuss your next project or collaboration opportunity."
 >
-  <main class="main">
+  <main id="main-content" class="main">
     <div class="content w-full">
       <h1 class="headingMain">Contact</h1>
       <div class="grid grid-cols-3 gap-7 gridContainerMargin mb-7">
@@ -94,13 +94,10 @@ import AnimatedColumnContact from "../../components/AnimatedColumnContact";
             <!-- GDPR -->
             <label class="flex items-start gap-2 text-sm text-gray-600">
               <span
-                class="relative w-5 h-5 border border-black overflow-hidden cursor-pointer shrink-0"
+                class="relative w-5 h-5 border border-black overflow-hidden cursor-pointer shrink-0 peer-focus-visible:outline
+           peer-focus-visible:outline-2"
               >
-                <input
-                  type="checkbox"
-                  required
-                  class="peer absolute inset-0 opacity-0"
-                />
+                <input type="checkbox" class="peer sr-only" />
 
                 <!-- fill animation -->
                 <span

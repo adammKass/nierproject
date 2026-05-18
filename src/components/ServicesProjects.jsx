@@ -96,6 +96,9 @@ export default function ServicesProjects({ projects }) {
               >
                 {/* HEADER (clickable) */}
                 <motion.button
+                  aria-expanded={isOpen}
+                  aria-controls={`accordion-panel-${i}`}
+                  id={`accordion-header-${i}`}
                   onClick={() => setOpenIndex(isOpen ? null : i)}
                   className={`group relative flex flex-row items-center justify-between bg-white w-full
                 uppercase selectButtonSize text-left py-2 px-2
@@ -113,6 +116,7 @@ export default function ServicesProjects({ projects }) {
                     {project.title}
                   </h2>
                   <Icon
+                    aria-hidden="true"
                     icon="material-symbols:arrow-right"
                     className={`z-100  transition-all duration-300 
       text-4xl  ${isOpen ? "text-white -rotate-90" : "text-black rotate-90"}`}
@@ -121,12 +125,20 @@ export default function ServicesProjects({ projects }) {
 
                 {/* CONTENT */}
                 <div
+                  id={`accordion-panel-${i}`}
+                  role="region"
+                  aria-labelledby={`accordion-header-${i}`}
+                  inert={!isOpen ? "" : undefined}
                   className={`transition-all duration-300 ease-in-out overflow-hidden ${
                     isOpen ? "max-h-[1000px]" : "max-h-0"
                   }`}
                 >
                   <div className="w-full aspect-video flex items-center justify-center">
-                    <Icon icon={project.icon} className={`text-[162px]`} />
+                    <Icon
+                      aria-label={`Icon of ${project.title}`}
+                      icon={project.icon}
+                      className={`text-[162px]`}
+                    />
                   </div>
 
                   <p className="p-4 text-darkestGray">{project.about}</p>

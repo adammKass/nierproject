@@ -12,7 +12,7 @@ import AnimatedColumn from "../../components/AnimatedColumn.jsx";
   title="About"
   description="Learn more about me, my background, and my experience as a web developer and 3D artist, showcasing my passion for precision and creativity in every project I undertake."
 >
-  <main class="main">
+  <main id="main-content" class="main">
     <div class="content flex flex-col gap-4 lg:gap-0">
       <h1 class="headingMain">About Me</h1>
       <div class="grid grid-cols-12 gap-7 gridContainerMargin mb-7">
@@ -56,7 +56,10 @@ import AnimatedColumn from "../../components/AnimatedColumn.jsx";
       >
         <Image
           src={Portrait}
-          alt="About Image"
+          alt="Stylized portrait digital painting of Adam Kaščák"
+          width="800"
+          height="800"
+          loading="lazy"
           class="object-cover w-full h-full origin-top"
         />
       </div>
