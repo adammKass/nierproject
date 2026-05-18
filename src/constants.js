@@ -269,7 +269,7 @@ export const WEB_LINKS = [
     id: "Horn",
     title: "Horn",
     href: "/web-design/horn/",
-    alt: "Web icon representing a fictional boxing gym website in Bratislava",
+    alt: "Desktop view of hero banner of Horn landing page depicting face on shot of boxer with dramatic lighting and a heading",
     textShort:
       "A fully responsive and accessible website concept for a fictional boxing and fitness gym.",
     type: "Web Design",

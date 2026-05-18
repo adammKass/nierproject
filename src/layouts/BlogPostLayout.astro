@@ -37,8 +37,8 @@ const { frontmatter } = Astro.props;
           </h1>
           <img
             src={frontmatter.image}
-            alt={frontmatter.title}
-            class="w-full rounded-xl aspect-video object-cover"
+            alt={frontmatter.alt}
+            class="w-full aspect-video object-cover"
           />
         </div>
 
@@ -72,7 +72,7 @@ const { frontmatter } = Astro.props;
           class="prose prose-lg max-w-none
               prose-headings:font-bold prose-headings:text-black
               
-              prose-img:rounded-lg
+              
               prose-img:mx-auto
               prose-figcaption:text-center
               prose-figcaption:text-sm
@@ -89,7 +89,7 @@ const { frontmatter } = Astro.props;
       </article>
       <button
         id="scrollTopBtn"
-        class="relative group overflow-hidden flex flex-row items-center before:absolute before:inset-0 before:bg-black
+        class="hidden relative group overflow-hidden flex flex-row items-center before:absolute before:inset-0 before:bg-black
                 before:origin-left before:scale-x-0
                 before:transition-transform before:duration-300
                 hover:before:scale-x-100 cursor-pointer p-2 pr-4 gap-2 border border-black bg-white w-fit self-center"
@@ -112,20 +112,36 @@ const { frontmatter } = Astro.props;
 </Layout>
 
 <script>
-  const btn = document.getElementById("scrollTopBtn") as HTMLButtonElement;
+  function initScrollTop() {
+    const btn = document.getElementById("scrollTopBtn") as HTMLButtonElement;
 
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 300) {
-      btn.classList.remove("hidden");
-    } else {
-      btn.classList.add("hidden");
+    if (!btn || btn.dataset.initialized) return;
+
+    btn.dataset.initialized = "true";
+
+    function toggleButton() {
+      if (window.scrollY > 300) {
+        btn.classList.remove("hidden");
+      } else {
+        btn.classList.add("hidden");
+      }
     }
-  });
 
-  btn.addEventListener("click", () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
+    window.addEventListener("scroll", toggleButton, {
+      passive: true,
     });
-  });
+
+    btn.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    });
+
+    toggleButton();
+  }
+
+  initScrollTop();
+
+  document.addEventListener("astro:page-load", initScrollTop);
 </script>

@@ -1,6 +1,7 @@
 ---
 layout: ../../layouts/BlogPostLayout.astro
 title: "Horn - A fully responsive and accessible website concept for a fictional boxing and fitness gym."
+alt: "Desktop view of hero banner of Horn landing page depicting face on shot of boxer with dramatic lighting and a heading"
 date: "July 2025"
 tag: "Web Design"
 image: "/images/Horn_ThumbNail.jpg"

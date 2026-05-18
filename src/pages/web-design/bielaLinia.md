@@ -1,6 +1,7 @@
 ---
 layout: ../../layouts/BlogPostLayout.astro
 title: "A fully responsive and accessible website concept for a Slovak household cleaning company."
+alt: "Desktop view of hero banner of landing page depicting calming shot of a cleaner cleaning table"
 date: "January 2026"
 tag: "Web Design"
 image: "/images/BielaLinia_ThumbNail.jpg"

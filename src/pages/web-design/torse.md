@@ -1,6 +1,7 @@
 ---
 layout: ../../layouts/BlogPostLayout.astro
 title: "Torse - Animated hero banner concept"
+alt: "High contrast B&W 3D scene depicting spacious minimalistic living room"
 date: "August 2025"
 tag: "Web Design"
 image: "/images/Torse_Desktop.png"
@@ -14,7 +15,7 @@ This is an experimental project of mine. I wanted to try something new and combi
 
 ## Colors and Typography
 
-As this was my personal project, I decided to kepp it in colors I like: black and white. For typography I chose bold League Spartan font (very similar to timeless font Futura PT).
+As this was my personal project, I decided to keep it in colors I like: black and white. For typography I chose bold League Spartan font (very similar to timeless font Futura PT).
 
 <figure>
   <img src="/images/Torse_Loading.png" alt="Loading screen" />
@@ -29,7 +30,7 @@ As this was my personal project, I decided to kepp it in colors I like: black an
 
 <figure>
   <img src="/images/Torse_wireframe.png" alt="3D scene wireframe in Blender" />
-  <figcaption>3D scene wireframe in Blender</figcaption>
+  <figcaption>3D scene wD scene depicting minimalistic iireframe in Blender</figcaption>
 </figure>
 
 ---

@@ -284,7 +284,7 @@ export default function ServicesProjects({ projects }) {
                   <Icon icon={project.icon} className={`text-[162px]`} />
                 </div>
 
-                <p className="p-4 text-darkestGray">{project.about}</p>
+                <p className="p-4 text-black">{project.about}</p>
                 <p className="px-4 py-2 lg:py-4 text-black uppercase font-bold">
                   {project.areas}
                 </p>

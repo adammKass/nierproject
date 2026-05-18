@@ -12,7 +12,18 @@ export default function Navbar({ pathname }) {
 
   // Prevent background scroll
   useEffect(() => {
-    document.documentElement.classList.toggle("overflow-hidden", isOpen);
+    if (isOpen) {
+      document.documentElement.classList.add("overflow-hidden");
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.documentElement.classList.remove("overflow-hidden");
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    return () => {
+      document.documentElement.classList.remove("overflow-hidden");
+      document.body.classList.remove("overflow-hidden");
+    };
   }, [isOpen]);
 
   // ESC to close
@@ -150,12 +161,14 @@ export default function Navbar({ pathname }) {
           aria-modal="true"
           aria-label="Navigation menu"
           aria-hidden={!isOpen}
-          className={`fixed block lg:hidden top-6 left-0 h-full w-full max-w-[300px] bg-lightGray z-30
+          className={`fixed block lg:hidden top-0 left-0
+h-dvh overflow-y-auto overscroll-contain
+w-full max-w-[300px] bg-lightGray z-30
           transition-transform duration-300 ease-out shadow-xl motion-reduce:transition-none
           ${isOpen ? "translate-x-0" : "-translate-x-full"}
         `}
         >
-          <nav aria-label="Mobile navigation" className=" mt-16 ">
+          <nav aria-label="Mobile navigation" className=" pt-20 pb-8 ">
             <ul className="flex flex-col gap-4">
               {NAV_LINKS.map((link) => {
                 const isActive =
