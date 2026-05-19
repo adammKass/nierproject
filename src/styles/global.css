@@ -77,26 +77,8 @@ html {
 @font-face {
   font-family: SpectralSC;
   font-style: normal;
-  font-weight: 400;
-  src: url("/fonts/Cinzel-Regular.ttf") format("truetype");
-}
-@font-face {
-  font-family: SpectralSC;
-  font-style: normal;
   font-weight: 500;
   src: url("/fonts/Cinzel-Medium.ttf") format("truetype");
-}
-/* @font-face {
-  font-family: SpectralSC;
-  font-style: normal;
-  font-weight: 300;
-  src: url("/fonts/SpectralSC-Light.ttf") format("truetype");
-} */
-@font-face {
-  font-family: SpectralSC;
-  font-style: normal;
-  font-weight: 700;
-  src: url("/fonts/Cinzel-Bold.ttf") format("truetype");
 }
 
 @font-face {

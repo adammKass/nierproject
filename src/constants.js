@@ -1,13 +1,13 @@
-import HornThumb from "./assets/GraphicDesign/Horn/Horn_ThumbNail.jpg";
+import HornThumb from "./assets/GraphicDesign/Horn/Horn_ThumbNail.webp";
 
-import BielaLiniaThumb from "./assets/GraphicDesign/BielaLinia/BielaLinia_Thumb.jpg";
+import BielaLiniaThumb from "./assets/GraphicDesign/BielaLinia/BielaLinia_ThumbNail.webp";
 
-import TorseThumbnail from "./assets/GraphicDesign/Torse/Torse_thumb.jpg";
+import TorseThumbnail from "./assets/GraphicDesign/Torse/Torse_ThumbNail.webp";
 
-import SDThumb from "./assets/3dGraphics/SDThumb.jpg";
-import FBUThumb from "./assets/3dGraphics/FBUThumb.jpg";
-import OasisThumb from "./assets/3dGraphics/OasisThumb.jpg";
-import TombThumb from "./assets/3dGraphics/TombThumb.jpg";
+import SDThumb from "./assets/3dGraphics/SD_ThumbNail.webp";
+import FBUThumb from "./assets/3dGraphics/FBU_ThumbNail.webp";
+import OasisThumb from "./assets/3dGraphics/Oasis_ThumbNail.webp";
+import TombThumb from "./assets/3dGraphics/Tomb_ThumbNail.webp";
 
 import Raven from "./assets/Illustrations/raven-M.webp";
 import Shoes from "./assets/Illustrations/shoes-M.webp";

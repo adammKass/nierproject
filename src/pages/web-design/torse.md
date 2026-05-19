@@ -29,7 +29,7 @@ As this was my personal project, I decided to keep it in colors I like: black an
 3D models were kept to a very simple low-poly level, since everything would be either black or white - more detail would mostly only mean more distracting noise.
 
 <figure>
-  <img src="/images/Torse_wireframe.png" alt="3D scene wireframe in Blender" />
+  <img src="/images/Torse_wireframe.webp" alt="3D scene wireframe in Blender" />
   <figcaption>3D scene wD scene depicting minimalistic iireframe in Blender</figcaption>
 </figure>
 
@@ -40,7 +40,7 @@ As this was my personal project, I decided to keep it in colors I like: black an
 I used Freestyle rendering engine in Blender (often used to render lineart) and combined it with simple black&white shader rendered in EEVEE.
 
 <figure>
-  <img src="/images/Torse_shading.png" alt="Black and white shader in Blender" />
+  <img src="/images/Torse_shading.webp" alt="Black and white shader in Blender" />
   <figcaption>Black and white shader in Blender</figcaption>
 </figure>
 
@@ -60,7 +60,7 @@ The project was designed in Figma and developed with React and Motion animation 
 </figure>
 
 <figure>
-  <img src="/images/Torse_mobile.jpg" alt="Responsive design" />
+  <img src="/images/Torse_mobile.webp" alt="Responsive design" />
   <figcaption>Responsive design</figcaption>
 </figure>
 

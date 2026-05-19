@@ -4,7 +4,7 @@ title: "A fully responsive and accessible website concept for a Slovak household
 alt: "Desktop view of hero banner of landing page depicting calming shot of a cleaner cleaning table"
 date: "January 2026"
 tag: "Web Design"
-image: "/images/BielaLinia_ThumbNail.jpg"
+image: "/images/BielaLinia_ThumbNail.webp"
 ---
 
 This project involved creating one page application for a household cleaning company based in Slovakia. THe client had one specific requitement - to make the page navigate like a vertical carousel (one section taking up full viewport space).
@@ -32,7 +32,7 @@ The project was designed in Figma and developed using React and Motion library.
 The main obstacle with this design was to keep the site responsive across multiple resolutions and orientations. Each section had to fit exactly one viewport height, which proved to be rather difficult for mobile landscape orientation and needed a lot of tweaking.
 
 <figure>
-  <img src="/images/BielaLinia_Mobile.jpg" alt="Responsive design" />
+  <img src="/images/BielaLinia_Mobile.webp" alt="Responsive design" />
   <figcaption>Responsive design</figcaption>
 </figure>
 

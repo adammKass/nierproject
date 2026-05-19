@@ -4,7 +4,7 @@ title: "Horn - A fully responsive and accessible website concept for a fictional
 alt: "Desktop view of hero banner of Horn landing page depicting face on shot of boxer with dramatic lighting and a heading"
 date: "July 2025"
 tag: "Web Design"
-image: "/images/Horn_ThumbNail.jpg"
+image: "/images/Horn_ThumbNail.webp"
 excerpt: "A practical walkthrough of building a blog with Astro and Tailwind."
 ---
 
@@ -19,7 +19,7 @@ This was one of the first projects I created. The goal was to create a one page 
 The visual identity balances boldness with approachability — strong but not intimidating. Sections switch between white and black background, creating bold contrast while also leaving text readable. Red is used as an accent color.
 
 <figure>
-  <img src="/images/Horn_Colors.jpg" alt="Colors used inside Horn website: red, gray and black" />
+  <img src="/images/Horn_Colors.webp" alt="Colors used inside Horn website: red, gray and black" />
   <figcaption>Colors used inside Horn website: red, gray and black</figcaption>
 </figure>
 
@@ -63,7 +63,7 @@ The landing page includes the following sections: Home Banner | Equipment | Trai
 </figure>
 
 <figure>
-  <img src="/images/Horn_Responsive.jpg" alt="Responsive design" />
+  <img src="/images/Horn_Responsive.webp" alt="Responsive design" />
   <figcaption>Responsive design</figcaption>
 </figure>
 
